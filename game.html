@@ -1,0 +1,92 @@
+<html>
+<body onload="refreshBoard()">
+  <head>
+    <link rel="stylesheet" href="game.css">
+    <script src="game.js"></script>
+  </head>
+
+<div id="Turn">Black Turn</div>
+<div id="grid">
+<div class="row">
+  <div class="cell" id="cell00" onclick="selectPiece(0,0);"><div class="piece"></div></div>
+  <div class="cell" id="cell01" onclick="selectPiece(0,1);"><div class="piece"></div></div>
+  <div class="cell" id="cell02" onclick="selectPiece(0,2);"><div class="piece"></div></div>
+  <div class="cell" id="cell03" onclick="selectPiece(0,3);"><div class="piece"></div></div>
+  <div class="cell" id="cell04" onclick="selectPiece(0,4);"><div class="piece"></div></div>
+  <div class="cell" id="cell05" onclick="selectPiece(0,5);"><div class="piece"></div></div>
+  <div class="cell" id="cell06" onclick="selectPiece(0,6);"><div class="piece"></div></div>
+  <div class="cell" id="cell07" onclick="selectPiece(0,7);"><div class="piece"></div></div>
+</div>
+<div class="row">  
+  <div class="cell" id="cell10" onclick="selectPiece(1,0);"><div class="piece"></div></div>
+  <div class="cell" id="cell11" onclick="selectPiece(1,1);"><div class="piece"></div></div>
+  <div class="cell" id="cell12" onclick="selectPiece(1,2);"><div class="piece"></div></div>
+  <div class="cell" id="cell13" onclick="selectPiece(1,3);"><div class="piece"></div></div>
+  <div class="cell" id="cell14" onclick="selectPiece(1,4);"><div class="piece"></div></div>
+  <div class="cell" id="cell15" onclick="selectPiece(1,5);"><div class="piece"></div></div>
+  <div class="cell" id="cell16" onclick="selectPiece(1,6);"><div class="piece"></div></div>
+  <div class="cell" id="cell17" onclick="selectPiece(1,7);"><div class="piece"></div></div>
+</div>
+<div class="row">  
+  <div class="cell" id="cell20" onclick="selectPiece(2,0);"><div class="piece"></div></div>
+  <div class="cell" id="cell21" onclick="selectPiece(2,1);"><div class="piece"></div></div>
+  <div class="cell" id="cell22" onclick="selectPiece(2,2);"><div class="piece"></div></div>
+  <div class="cell" id="cell23" onclick="selectPiece(2,3);"><div class="piece"></div></div>
+  <div class="cell" id="cell24" onclick="selectPiece(2,4);"><div class="piece"></div></div>
+  <div class="cell" id="cell25" onclick="selectPiece(2,5);"><div class="piece"></div></div>
+  <div class="cell" id="cell26" onclick="selectPiece(2,6);"><div class="piece"></div></div>
+  <div class="cell" id="cell27" onclick="selectPiece(2,7);"><div class="piece"></div></div>
+</div>
+<div class="row">  
+  <div class="cell" id="cell30" onclick="selectPiece(3,0);"><div class="piece"></div></div>
+  <div class="cell" id="cell31" onclick="selectPiece(3,1);"><div class="piece"></div></div>
+  <div class="cell" id="cell32" onclick="selectPiece(3,2);"><div class="piece"></div></div>
+  <div class="cell" id="cell33" onclick="selectPiece(3,3);"><div class="piece"></div></div>
+  <div class="cell" id="cell34" onclick="selectPiece(3,4);"><div class="piece"></div></div>
+  <div class="cell" id="cell35" onclick="selectPiece(3,5);"><div class="piece"></div></div>
+  <div class="cell" id="cell36" onclick="selectPiece(3,6);"><div class="piece"></div></div>
+  <div class="cell" id="cell37" onclick="selectPiece(3,7);"><div class="piece"></div></div>
+</div>
+<div class="row">
+  <div class="cell" id="cell40" onclick="selectPiece(4,0);"><div class="piece"></div></div>
+  <div class="cell" id="cell41" onclick="selectPiece(4,1);"><div class="piece"></div></div>
+  <div class="cell" id="cell42" onclick="selectPiece(4,2);"><div class="piece"></div></div>
+  <div class="cell" id="cell43" onclick="selectPiece(4,3);"><div class="piece"></div></div>
+  <div class="cell" id="cell44" onclick="selectPiece(4,4);"><div class="piece"></div></div>
+  <div class="cell" id="cell45" onclick="selectPiece(4,5);"><div class="piece"></div></div>
+  <div class="cell" id="cell46" onclick="selectPiece(4,6);"><div class="piece"></div></div>
+  <div class="cell" id="cell47" onclick="selectPiece(4,7);"><div class="piece"></div></div>
+</div>
+<div class="row">
+  <div class="cell" id="cell50" onclick="selectPiece(5,0);"><div class="piece"></div></div>
+  <div class="cell" id="cell51" onclick="selectPiece(5,1);"><div class="piece"></div></div>
+  <div class="cell" id="cell52" onclick="selectPiece(5,2);"><div class="piece"></div></div>
+  <div class="cell" id="cell53" onclick="selectPiece(5,3);"><div class="piece"></div></div>
+  <div class="cell" id="cell54" onclick="selectPiece(5,4);"><div class="piece"></div></div>
+  <div class="cell" id="cell55" onclick="selectPiece(5,5);"><div class="piece"></div></div>
+  <div class="cell" id="cell56" onclick="selectPiece(5,6);"><div class="piece"></div></div>
+  <div class="cell" id="cell57" onclick="selectPiece(5,7);"><div class="piece"></div></div>
+</div>
+  <div class="row">
+  <div class="cell" id="cell60" onclick="selectPiece(6,0);"><div class="piece"></div></div>
+  <div class="cell" id="cell61" onclick="selectPiece(6,1);"><div class="piece"></div></div>
+  <div class="cell" id="cell62" onclick="selectPiece(6,2);"><div class="piece"></div></div>
+  <div class="cell" id="cell63" onclick="selectPiece(6,3);"><div class="piece"></div></div>
+  <div class="cell" id="cell64" onclick="selectPiece(6,4);"><div class="piece"></div></div>
+  <div class="cell" id="cell65" onclick="selectPiece(6,5);"><div class="piece"></div></div>
+  <div class="cell" id="cell66" onclick="selectPiece(6,6);"><div class="piece"></div></div>
+  <div class="cell" id="cell67" onclick="selectPiece(6,7);"><div class="piece"></div></div>
+</div>
+  <div class="row">
+  <div class="cell" id="cell70" onclick="selectPiece(7,0);"><div class="piece"></div></div>
+  <div class="cell" id="cell71" onclick="selectPiece(7,1);"><div class="piece"></div></div>
+  <div class="cell" id="cell72" onclick="selectPiece(7,2);"><div class="piece"></div></div>
+  <div class="cell" id="cell73" onclick="selectPiece(7,3);"><div class="piece"></div></div>
+  <div class="cell" id="cell74" onclick="selectPiece(7,4);"><div class="piece"></div></div>
+  <div class="cell" id="cell75" onclick="selectPiece(7,5);"><div class="piece"></div></div>
+  <div class="cell" id="cell76" onclick="selectPiece(7,6);"><div class="piece"></div></div>
+  <div class="cell" id="cell77" onclick="selectPiece(7,7);"><div class="piece"></div></div>
+  </div>
+</div>  
+</body>
+</html>
