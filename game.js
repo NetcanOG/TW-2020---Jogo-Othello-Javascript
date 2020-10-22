@@ -16,71 +16,48 @@ var grid = [
 var N, NE, E, SE, S, SW, W, NW; 
 
 //Adiciona uma peça, depois de verificar que é uma posição válida
-function selectPiece(y,x) {
-   
+function selectPiece(x,y) {
   //player 1, peças pretas
-  if ((player == 1) && validPiece(y,x) == 1) {
-    grid[y][x]=1;
+  if ((player == 1) && validPiece(x,y) == 1) {
+    grid[x][y]=1;
+    switchPieces(x,y);
     player=2;
     document.getElementById("Turn").innerHTML="White Turn";
   }
   //player 2, peças brancas
-  else if ((player == 2) && validPiece(y,x) == 1) {
-    grid[y][x]=2;
+  else if ((player == 2) && validPiece(x,y) == 1) {
+    grid[x][y]=2;
+    switchPieces(x,y);
     player=1;
     document.getElementById("Turn").innerHTML="Black Turn";
   }
-  
   refreshBoard();
 }
 
-
-function validPiece(y,x){
-  //player 1, peças pretas
-  if((grid[y][x] == 0) && (checkAround(y,x) == 1)){
+function validPiece(x,y){
+  if((grid[x][y] == 0) && (checkAround(x,y) == 1)){
     //verificamos a validade das direções, 0 se a dreção não for válida, 1 ou mais para o número de peças que podem ser alteradas
-    /*
-    N = checkN(y,x,0);
-    NE = checkNE(y,x,0);
-    E = checkE(y,x,0);
-    SE = checkSE(y,x,0);
-    S = checkS(y,x,0);
-    SW = checkSW(y,x,0);
-    W = checkW(y,x,0);
-    NW = checkNW(y,x,0);
-    
-    if( (N == 0) || (NE == 0) || (E == 0) || (SE == 0) || (S == 0) || (SW == 0) || (W == 0) || (NW == 0) ){
-      return 0;
-    }*/
-
-    return 1;
-  }
-  //player 2, peças brancas
-  else if((grid[y][x] == 0) && (checkAround(y,x) == 1)){
-   /*
-    N = checkN(y,x);
-    NE = checkNE(y,x);
-    E = checkE(y,x);
-    SE = checkSE(y,x);
-    S = checkS(y,x);
-    SW = checkSW(y,x);
-    W = checkW(y,x);
-    NW = checkNW(y,x);
-     
-    if( (N == 0) || (NE == 0) || (E == 0) || (SE == 0) || (S == 0) || (SW == 0) || (W == 0) || (NW == 0) ){
+    N = checkN(x,y,0);
+    NE = checkNE(x,y,0);
+    E = checkE(x,y,0);
+    SE = checkSE(x,y,0);
+    S = checkS(x,y,0);
+    SW = checkSW(x,y,0);
+    W = checkW(x,y,0);
+    NW = checkNW(x,y,0);
+    if( (N == 0) && (NE == 0) && (E == 0) && (SE == 0) && (S == 0) && (SW == 0) && (W == 0) && (NW == 0) ){  
       return 0;
     }
-*/
     return 1;
   }
 }
 
-//verifica as peças à volta da coordenada (y,x), retorna 0 se for uma posição válida, 1 se não
-function checkAround(y,x){
+//verifica as peças à volta da coordenada (x,y), retorna 1 se for uma posição válida, 0 se não
+function checkAround(x,y){
   for(var tempy = y-1; tempy <= y+1; tempy++){
     for( var tempx = x-1; tempx <= x+1; tempx++){
-      if(tempx >= 0 && tempy >= 0){
-        if( ((grid[tempy][tempx] == 2) && (player == 1)) || ((grid[tempy][tempx] == 1) && (player == 2)) ){
+      if(tempx >= 0 && tempy >= 0 && tempx <= 7 && tempy <= 7){
+        if( ((grid[tempx][tempy] == 2) && (player == 1)) || ((grid[tempx][tempy] == 1) && (player == 2)) ){
           return 1;
         }
       }
@@ -89,6 +66,49 @@ function checkAround(y,x){
   return 0;
 }
 
+//troca as peças consoante os valores guardados nas variáveis globais para o jogador correspondente
+function switchPieces(x,y){
+  if(N != 0){
+    for(var i = 1; i <= N; i++){
+      grid[x][y-i] = player;
+    }
+  }
+  if(NE != 0){
+    for(var i = 1; i <= NE; i++){
+      grid[x+i][y-i] = player;
+    }
+  }
+  if(E != 0){
+    for(var i = 1; i <= E; i++){
+      grid[x+i][y] = player;
+    }
+  }
+  if(SE != 0){
+    for(var i = 1; i <= SE; i++){
+      grid[x+i][y+i] = player;
+    }
+  }
+  if(S != 0){
+    for(var i = 1; i <= S; i++){
+      grid[x][y+i] = player;
+    }
+  }
+  if(SW != 0){
+    for(var i = 1; i <= SW; i++){
+      grid[x-i][y+i] = player;
+    }
+  }
+  if(W != 0){
+    for(var i = 1; i <= W; i++){
+      grid[x-i][y] = player;
+    }
+  }
+  if(NW != 0){
+    for(var i = 1; i <= NW; i++){
+      grid[x-i][y-i] = player;
+    }
+  }
+}
 
 //Faz refresh à Board (automaticamente no início do jogo e depois em cada colocação de peça)
 function refreshBoard() {
@@ -105,45 +125,122 @@ function refreshBoard() {
   }  
 }
 
-function checkN(y,x,overOne){
+/*---------------------- Direction Check ---------------------- */
+
+function checkN(x,y,overOne){
   if((y-1) < 0){
     //a posição está fora do tabuleiro, como não parou antes é porque não é uma direção válida
     return 0;
-  } else if(grid[y-1][x] == 0){
+  } else if(grid[x][y-1] == 0){
     //a posição está vazia, como não parou antes é porque não é uma direção válida
     return 0;
-  } else if((grid[y-1][x] == player) && (overOne == 0)){
+  } else if((grid[x][y-1] == player) && (overOne == 0)){
     //encontrou outra peça da mesma cor mas não existem peças adversárias entre as duas, a direção é inválida 
     return 0;
-  } else if(grid[y-1][x] != player){
+  } else if(grid[x][y-1] != player){
     //encontra uma peça adversária, continua a verificar a direção
     overOne++;
-    return checkN(y-1,x,overOne);
+    return checkN(x,y-1,overOne);
   }
-  //caso onde encontra uma peça da mesma cor e estando overOne == 1, sabe que existem overOne peças adversárias entre as duas 
+  //caso onde encontra uma peça da mesma cor e estando overOne >= 1, sabe que existem overOne peças adversárias entre as duas 
   return overOne;
 }
 
-/*
-function checkNE(y,x,overOne){
-  return 0;
+function checkNE(x,y,overOne){
+  if(((y-1) < 0) || ((x+1) > 7)){
+    return 0;
+  } else if(grid[x+1][y-1] == 0){
+    return 0;
+  } else if((grid[x+1][y-1] == player) && (overOne == 0)){
+    return 0;
+  } else if(grid[x+1][y-1] != player){
+    overOne++;
+    return checkNE(x+1,y-1,overOne);
+  }
+  return overOne;
 }
-function checkE(y,x,overOne){
-  return 0;
+
+function checkE(x,y,overOne){
+  if((x+1) > 7){
+    return 0;
+  } else if(grid[x+1][y] == 0){
+    return 0;
+  } else if((grid[x+1][y] == player) && (overOne == 0)){
+    return 0;
+  } else if(grid[x+1][y] != player){
+    overOne++;
+    return checkE(x+1,y,overOne);
+  }
+  return overOne;
 }
-function checkSE(y,x,overOne){
-  return 0;
+
+function checkSE(x,y,overOne){
+  if(((y+1) > 7) || ((x+1) > 7)){
+    return 0;
+  } else if(grid[x+1][y+1] == 0){
+    return 0;
+  } else if((grid[x+1][y+1] == player) && (overOne == 0)){
+    return 0;
+  } else if(grid[x+1][y+1] != player){
+    overOne++;
+    return checkSE(x+1,y+1,overOne);
+  }
+  return overOne;
 }
-function checkS(y,x,overOne){
-  return 0;
+
+function checkS(x,y,overOne){
+  if((y+1) > 7){
+    return 0;
+  } else if(grid[x][y+1] == 0){
+    return 0;
+  } else if((grid[x][y+1] == player) && (overOne == 0)){
+    return 0;
+  } else if(grid[x][y+1] != player){
+    overOne++;
+    return checkS(x,y+1,overOne);
+  }
+  return overOne;
 }
-function checkSW(y,x,overOne){
-  return 0;
+
+function checkSW(x,y,overOne){
+  if(((y+1) > 7) || ((x-1) < 0)){
+    return 0;
+  } else if(grid[x-1][y+1] == 0){
+    return 0;
+  } else if((grid[x-1][y+1] == player) && (overOne == 0)){
+    return 0;
+  } else if(grid[x-1][y+1] != player){
+    overOne++;
+    return checkSW(x-1,y+1,overOne);
+  }
+  return overOne;
 }
-function checkW(y,x,overOne){
-  return 0;
+
+function checkW(x,y,overOne){
+  if((x-1) < 0){
+    return 0;
+  } else if(grid[x-1][y] == 0){
+    return 0;
+  } else if((grid[x-1][y] == player) && (overOne == 0)){
+    return 0;
+  } else if(grid[x-1][y] != player){
+    overOne++;
+    return checkW(x-1,y,overOne);
+  }
+  return overOne;
 }
-function checkNW(y,x,overOne){
-  return 0;
+
+function checkNW(x,y,overOne){
+  if(((y-1) < 0) || ((x-1) < 0)){
+    return 0;
+  } else if(grid[x-1][y-1] == 0){
+    return 0;
+  } else if((grid[x-1][y-1] == player) && (overOne == 0)){
+    return 0;
+  } else if(grid[x-1][y-1] != player){
+    overOne++;
+    return checkNW(x-1,y-1,overOne);
+  }
+  return overOne;
 }
-*/
+/*------------------------------------------------------------- */
