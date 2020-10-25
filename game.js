@@ -1,6 +1,7 @@
 "use strict";
 
 var player=1; //1 para Preto, 2 para Branco
+
 var grid = [
   [0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0],
@@ -12,26 +13,53 @@ var grid = [
   [0,0,0,0,0,0,0,0]
 ];
 
+var passTimes = 0;
+
 //cardinais e intercardinais, usadas para verificar se as direções são válidas nas colocações das peças
 var N, NE, E, SE, S, SW, W, NW; 
 
 //Adiciona uma peça, depois de verificar que é uma posição válida
-function selectPiece(x,y) {
+function selectPiece(x,y){
+  passTimes = 0;
+
   //player 1, peças pretas
   if ((player == 1) && validPiece(x,y) == 1) {
     grid[x][y]=1;
     switchPieces(x,y);
     player=2;
+    refreshBoard();
     document.getElementById("Turn").innerHTML="White Turn";
+
+    if(checkPass() == 1){ //verificação e passar o turno
+      player = 1;
+      document.getElementById("Turn").innerHTML="Black Turn";
+      passTimes++;
+      setTimeout(() => {alert("Turn passed to Black");}, 300);
+
+      if(checkPass() == 1){ //verifica se vai passar outra vez
+        setTimeout(() => {endGame();}, 800);
+      }
+    }
   }
   //player 2, peças brancas
   else if ((player == 2) && validPiece(x,y) == 1) {
     grid[x][y]=2;
     switchPieces(x,y);
     player=1;
+    refreshBoard();
     document.getElementById("Turn").innerHTML="Black Turn";
+
+    if(checkPass() == 1){ //verificação e passar o turno
+      player = 2;
+      document.getElementById("Turn").innerHTML="White Turn";
+      passTimes++;
+      setTimeout(() => {alert("Turn passed to White");}, 300);
+
+      if(checkPass() == 1){ //verifica se vai passar outra vez
+        setTimeout(() => {endGame();}, 800);
+      }
+    }
   }
-  refreshBoard();
 }
 
 function validPiece(x,y){
@@ -112,20 +140,36 @@ function switchPieces(x,y){
 
 //Faz refresh à Board (automaticamente no início do jogo e depois em cada colocação de peça)
 function refreshBoard() {
-  for (var row = 0; row < 8; row++) {
-    for (var col = 0; col < 8; col++) {
-      if (grid[row][col]==0) { 
-                document.getElementById("cell"+row+col).childNodes[0].style.backgroundColor="green";
-      } else if (grid[row][col]==1) { //1 for black
-                document.getElementById("cell"+row+col).childNodes[0].style.backgroundColor="#000000";
-      } else if (grid[row][col]==2) { //2 for white
-                document.getElementById("cell"+row+col).childNodes[0].style.backgroundColor="#FFFFFF";
+  for (var tempy = 0; tempy < 8; tempy++) {
+    for (var tempx = 0; tempx < 8; tempx++) {
+      if (grid[tempx][tempy]==0) { 
+        document.getElementById("cell"+tempx+tempy).childNodes[0].style.backgroundColor="green";
+      } else if (grid[tempx][tempy]==1){
+        document.getElementById("cell"+tempx+tempy).childNodes[0].style.backgroundColor="#000000";
+      } else if (grid[tempx][tempy]==2){
+        document.getElementById("cell"+tempx+tempy).childNodes[0].style.backgroundColor="#FFFFFF";
       }
     }
   }  
 }
 
-/*---------------------- Direction Check ---------------------- */
+//verifica todas as peças do tabuleiro e se não ouverem posições válidas, retorna 1 para passar o turno
+function checkPass(){
+  for(var row = 0; row < 8; row++){
+    for(var col = 0; col < 8; col++){
+      if(validPiece(row,col) == 1){
+        return 0;
+      }
+    }
+  }
+  return 1;
+}
+
+function endGame(){
+  alert("Game Over");
+}
+
+/*----------------------------- Direction Check ----------------------------- */
 
 function checkN(x,y,overOne){
   if((y-1) < 0){
@@ -243,4 +287,10 @@ function checkNW(x,y,overOne){
   }
   return overOne;
 }
-/*------------------------------------------------------------- */
+/*--------------------------------------------------------------------------- */
+
+/*----------------------------------- AI ------------------------------------ */
+
+
+
+/*--------------------------------------------------------------------------- */
