@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Othello Miguel&Patricia</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/form.css">
+    <script type="text/javascript" src="js/settings.js"></script>
+
+
+    <link rel="stylesheet" href="css/game.css">
+    <script src="js/game.js"></script>
+
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body onload="createGrid()">
+
+   <!--Footer com informações sore o jogo-->
+   <div class="footer">
+    <h4 style="display: inline-block; float: left;">Othello 1.0 - Tecnologias Web</h4>
+    <h4 style="display: inline-block;">Outubro 2020</h4>
+    <h4 style="float: right;" >Miguel Ramos & Patrícia Vieira</h4>
+  </div>
+
+  <!--Página Incial-->
+  <div class="startpage" id="spage">
+    <div class="centrar">
+      <img src="img/LogoLetras.png" >
+      <button type="button" class="btn" onclick="showlogin()"> Vamos Jogar 
+        <i class="fas fa-play"></i>
+      </button>
+      
+    </div>
+  </div>
+
+  <!--Login e Menu de Jogo-->
+  <!--Barra Superior-->
+  <div class="header" id="header">
+    <img src="img/logopreto.png" style="width: 200px;">
+  </div>
+
+  <!--Menu-->
+  <div class="topnav" id="topnav">
+    <a id="voltarmodo" onclick="showmode()" ><i class="fas fa-arrow-left"></i></i> Voltar</a>
+    <a id="voltarregras" onclick="showmode()" ><i class="fas fa-arrow-left"></i></i> Voltar</a>
+    <a style="float:right" onclick="showbegin()"><i class="fas fa-sign-out-alt"></i> Sair</a>
+  </div>
+
+  <!--Form de Login-->
+  <div class="layoutrow" id="loginform">
+    <div>
+      <div class="card">
+        <div class="centrar">
+          <div class="login-content ">
+            <form >
+              <h2>Iniciar Sessão</h2>
+              <div class="input-div one">
+                  <div class="i">
+                      <i class="fas fa-user"></i>
+                  </div>
+                  <div class="div">
+                      <h5>Nome do Utilizador</h5>
+                      <input type="text" class="input">
+                  </div>
+              </div>
+              <div class="input-div one">
+                  <div class="i"> 
+                    <i class="fas fa-lock"></i>
+                  </div>
+                  <div class="div">
+                    <h5>Palavra-Passe</h5>
+                    <input type="password" class="input">
+                </div>
+              </div>
+              <button type="button" class="btn blogin" onclick="showmode()">Iniciar Sessão</button>
+            </form>
+          </div>
+        </div>
+       </div>
+    </div>
+  </div>
+
+  <!--Menu dos Modos-->
+  <div class="layoutrow" id="modebutton">
+      <div class="card">
+        <div class="centrar">
+          <div class="login-content ">
+          <div class="modojogo">
+            <div class="c1">
+              <button type="button" class="btn bmodo centrar" onclick="showgame()">
+                <img src="img/espadab.png"> VS  <img src="img/espadap.png" class="rotate">
+                <!--
+                <i class="fas fa-user"></i>   VS   <i class="fas fa-user"></i>
+                -->
+              </button>
+            </div>
+            <div class="c2">
+              <button type="button" class="btn bmodo" onclick="showdif()">
+                <img src="img/espadab.png">  VS    <i class="fas fa-robot"></i>
+              </button>
+            </div>  
+          </div>
+          <div>
+            <button type="button" class="btn blogin" onclick="showregras()">Regras</button>
+          </div>  
+        </div>
+     </div>
+    </div>
+  </div>
+
+  <!--Menu das Dificuldade VS Pc-->
+  <div class="layoutrow" id="difficulty">
+    <div class="card">
+      <div class="centrar">
+        <div class="login-content ">
+        <div class="mododificuldade">
+          <div class="c1">
+            <button type="button" class="btn bmodo" onclick="showcolor()">
+              <i class="fas fa-star"></i>
+            </button>
+          </div>
+          <div class="c2">
+            <button type="button" class="btn bmodo" onclick="showcolor()">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </button>
+          </div> 
+          <div class="c3">
+            <button type="button" class="btn bmodo" onclick="showcolor()">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </button>
+          </div>  
+        </div>
+      </div>
+   </div>
+  </div>
+  </div>
+
+  <!--Cores-->
+  <div class="layoutrow" id="color">
+    <div class="card">
+      <div class="centrar">
+        <div class="login-content ">
+          <div class="modojogo">
+            <div class="c1">
+              <button type="button" class="btn bmodo" onclick="showgame()">
+                BRANCO
+              </button>
+            </div>
+            <div class="c2">
+              <button type="button" class="btn bmodo" onclick="showgame()">
+                PRETO
+              </button>
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--Regras do Jogo-->
+  <div class="layoutrow" id="rules">
+    <div>
+      <div class="card">
+        <h2>Regras</h2>
+        <h5>Title description, Dec 7, 2017</h5>
+        <div class="fakeimg" style="height:200px;">Image</div>
+        <p>Some text..</p>
+        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!--Jogo/Tabuleiro-->
+  <div class="layoutrow" id="game">
+    <div class="leftcolumn">
+      <div class="card">
+        <div id="Turn">Black Turn</div>
+        <div id="grid"></div>
+        
+      
+      </div>
+    </div>
+    
+    <div class="rightcolumn">
+      <div class="card">
+        <i class="fas fa-star"></i>
+        <h2>Pontuação</h2>
+        <div class="fakeimg" style="height:100px;">Image</div>
+        <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
+
