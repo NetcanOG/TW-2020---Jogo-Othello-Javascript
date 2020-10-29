@@ -18,6 +18,46 @@ var passTimes = 0;
 //cardinais e intercardinais, usadas para verificar se as direções são válidas nas colocações das peças
 var N, NE, E, SE, S, SW, W, NW; 
 
+function createGrid(){
+  const gameGrid = document.getElementById("grid");
+
+  for(var y = 0; y < 8; y++){
+    var row;
+    row = document.createElement("div");
+    row.className = "row";
+
+    for(var x = 0; x < 8; x++){
+      var cell = document.createElement("div");
+      cell.className = "cell";
+      var piece = document.createElement("div");
+      piece.className = "piece";
+
+      cell.setAttribute("id", "cell"+x+y);
+      cell.setAttribute("onclick", "selectPiece("+x+","+y+");");
+      cell.appendChild(piece);
+      row.appendChild(cell);
+    }
+    gameGrid.appendChild(row);
+  }
+
+  refreshBoard();
+}
+
+//Faz refresh à Board (automaticamente no início do jogo e depois em cada colocação de peça)
+function refreshBoard() {
+  for (var tempy = 0; tempy < 8; tempy++) {
+    for (var tempx = 0; tempx < 8; tempx++) {
+      if (grid[tempx][tempy]==0) { 
+        document.getElementById("cell"+tempx+tempy).childNodes[0].style.backgroundColor="green";
+      } else if (grid[tempx][tempy]==1){
+        document.getElementById("cell"+tempx+tempy).childNodes[0].style.backgroundColor="#000000";
+      } else if (grid[tempx][tempy]==2){
+        document.getElementById("cell"+tempx+tempy).childNodes[0].style.backgroundColor="#FFFFFF";
+      }
+    }
+  }  
+}
+
 //Adiciona uma peça, depois de verificar que é uma posição válida
 function selectPiece(x,y){
   passTimes = 0;
@@ -138,20 +178,6 @@ function switchPieces(x,y){
   }
 }
 
-//Faz refresh à Board (automaticamente no início do jogo e depois em cada colocação de peça)
-function refreshBoard() {
-  for (var tempy = 0; tempy < 8; tempy++) {
-    for (var tempx = 0; tempx < 8; tempx++) {
-      if (grid[tempx][tempy]==0) { 
-        document.getElementById("cell"+tempx+tempy).childNodes[0].style.backgroundColor="green";
-      } else if (grid[tempx][tempy]==1){
-        document.getElementById("cell"+tempx+tempy).childNodes[0].style.backgroundColor="#000000";
-      } else if (grid[tempx][tempy]==2){
-        document.getElementById("cell"+tempx+tempy).childNodes[0].style.backgroundColor="#FFFFFF";
-      }
-    }
-  }  
-}
 
 //verifica todas as peças do tabuleiro e se não ouverem posições válidas, retorna 1 para passar o turno
 function checkPass(){
