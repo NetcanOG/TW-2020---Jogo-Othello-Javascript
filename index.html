@@ -13,7 +13,7 @@
     <script src="https://kit.fontawesome.com/a81368914c.js"></script>
      <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body onload="createGrid()">
+<body>
 
    <!--Footer com informações sore o jogo-->
    <div class="footer">
@@ -87,7 +87,7 @@
           <div class="login-content ">
           <div class="modojogo">
             <div class="c1">
-              <button type="button" class="btn bmodo centrar" onclick="showgame()">
+              <button type="button" class="btn bmodo centrar" onclick="showgame(1)">
                 <img src="img/espadab.png"> VS  <img src="img/espadap.png" class="rotate">
                 <!--
                 <i class="fas fa-user"></i>   VS   <i class="fas fa-user"></i>
@@ -95,7 +95,7 @@
               </button>
             </div>
             <div class="c2">
-              <button type="button" class="btn bmodo" onclick="showdif()">
+              <button type="button" class="btn bmodo" onclick="showdif(1)">
                 <img src="img/espadab.png">  VS    <i class="fas fa-robot"></i>
               </button>
             </div>  
@@ -115,17 +115,17 @@
         <div class="login-content ">
         <div class="mododificuldade">
           <div class="c1">
-            <button type="button" class="btn bmodo" onclick="showcolor()">
+            <button type="button" class="btn bmodo" onclick="showcolor(1)">
               <i class="fas fa-star"></i>
             </button>
           </div>
           <div class="c2">
-            <button type="button" class="btn bmodo" onclick="showcolor()">
+            <button type="button" class="btn bmodo" onclick="showcolor(2)">
               <i class="fas fa-star"></i><i class="fas fa-star"></i>
             </button>
           </div> 
           <div class="c3">
-            <button type="button" class="btn bmodo" onclick="showcolor()">
+            <button type="button" class="btn bmodo" onclick="showcolor(3)">
               <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
             </button>
           </div>  
@@ -142,12 +142,12 @@
         <div class="login-content ">
           <div class="modojogo">
             <div class="c1">
-              <button type="button" class="btn bmodo" onclick="showgame()">
+              <button type="button" class="btn bmodo" onclick="showgame(2)">
                 BRANCO
               </button>
             </div>
             <div class="c2">
-              <button type="button" class="btn bmodo" onclick="showgame()">
+              <button type="button" class="btn bmodo" onclick="showgame(1)">
                 PRETO
               </button>
             </div> 

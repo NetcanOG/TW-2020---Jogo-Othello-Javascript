@@ -1,6 +1,10 @@
 "use strict";
 
-var player=1; //1 para Preto, 2 para Branco
+var player=1;          //1 para Preto, 2 para Branco
+var vsBot=0;           //1 para jogos contra o bot, 0 para jogos entre pessoas
+var botDifficulty=0;   //dificuldade do bot, de 1 a 3
+var playerColor=0;     //cor do jogador
+var botColor=0;        //cor do bot
 
 var grid = [
   [0,0,0,0,0,0,0,0],
@@ -13,6 +17,7 @@ var grid = [
   [0,0,0,0,0,0,0,0]
 ];
 
+//variável para guardar quantas vezes a jogada foi passada num turno (em caso de 2, é Game Over)
 var passTimes = 0;
 
 //cardinais e intercardinais, usadas para verificar se as direções são válidas nas colocações das peças
@@ -39,8 +44,10 @@ function createGrid(){
     }
     gameGrid.appendChild(row);
   }
-
   refreshBoard();
+  if(vsBot == 1 && botColor == 1){
+    botTurn();
+  }
 }
 
 //Faz refresh à Board (automaticamente no início do jogo e depois em cada colocação de peça)
@@ -61,50 +68,61 @@ function refreshBoard() {
 //Adiciona uma peça, depois de verificar que é uma posição válida
 function selectPiece(x,y){
   passTimes = 0;
+  var played = 0;
 
   //player 1, peças pretas
-  if ((player == 1) && validPiece(x,y) == 1) {
-    grid[x][y]=1;
+  if ((player == 1) && validPiece(x,y) >= 1) {
+    grid[x][y] = 1;
     switchPieces(x,y);
-    player=2;
+    played = 1;
+    player = 2;
     refreshBoard();
     document.getElementById("Turn").innerHTML="White Turn";
 
-    if(checkPass() == 1){ //verificação e passar o turno
+    if(checkPass() == 1){ //verifica todas as jogadas possíveis do adversário e se não existirem, passa o controlo de volta
       player = 1;
+      played = 0;
       document.getElementById("Turn").innerHTML="Black Turn";
       passTimes++;
-      setTimeout(() => {alert("Turn passed to Black");}, 300);
-
-      if(checkPass() == 1){ //verifica se vai passar outra vez
-        setTimeout(() => {endGame();}, 800);
+      alert("Turn passed to Black");
+      if(checkPass() == 1){ //se passar duas vezes seguidas, o jogo termina porque nenhum jogador tem jogadas válidas
+        endGame();
+        return;
       }
     }
   }
+
   //player 2, peças brancas
-  else if ((player == 2) && validPiece(x,y) == 1) {
+  else if ((player == 2) && validPiece(x,y) >= 1) {
     grid[x][y]=2;
     switchPieces(x,y);
-    player=1;
+    played = 1;
+    player = 1;
     refreshBoard();
     document.getElementById("Turn").innerHTML="Black Turn";
 
-    if(checkPass() == 1){ //verificação e passar o turno
+    if(checkPass() == 1){ 
       player = 2;
+      played = 0;
       document.getElementById("Turn").innerHTML="White Turn";
       passTimes++;
-      setTimeout(() => {alert("Turn passed to White");}, 300);
-
-      if(checkPass() == 1){ //verifica se vai passar outra vez
-        setTimeout(() => {endGame();}, 800);
+      alert("Turn passed to White");
+      if(checkPass() == 1){
+        endGame();
+        return;
       }
     }
   }
+
+  //se o jogador fez a sua jogada e está a lutar contra um bot, então dá a vez ao computador
+  if(played == 1 && vsBot == 1){
+    botTurn();
+  }
 }
 
+//verificamos a validade das direções, 0 se a dreção não for válida, 1 ou mais para o número de peças que podem ser alteradas
 function validPiece(x,y){
   if((grid[x][y] == 0) && (checkAround(x,y) == 1)){
-    //verificamos a validade das direções, 0 se a dreção não for válida, 1 ou mais para o número de peças que podem ser alteradas
     N = checkN(x,y,0);
     NE = checkNE(x,y,0);
     E = checkE(x,y,0);
@@ -116,7 +134,7 @@ function validPiece(x,y){
     if( (N == 0) && (NE == 0) && (E == 0) && (SE == 0) && (S == 0) && (SW == 0) && (W == 0) && (NW == 0) ){  
       return 0;
     }
-    return 1;
+    return N+NE+E+SE+S+SW+W+NW;
   }
 }
 
@@ -183,7 +201,7 @@ function switchPieces(x,y){
 function checkPass(){
   for(var row = 0; row < 8; row++){
     for(var col = 0; col < 8; col++){
-      if(validPiece(row,col) == 1){
+      if(validPiece(row,col) >= 1){
         return 0;
       }
     }
@@ -192,8 +210,77 @@ function checkPass(){
 }
 
 function endGame(){
-  alert("Game Over");
+  setTimeout(() => {alert("Game Over");}, 800);
 }
+
+/*----------------------------------- AI ------------------------------------ */
+
+function botTurn(){
+  switch (botDifficulty){
+    case 1: //AI Easy
+    
+    break;
+    
+    case 2: //AI Medium - Escolhe a peça que "come" mais peças adversárias
+    var max = 0, cur = 0;
+    var maxx = 0, maxy = 0;
+
+    for(var tempy = 0; tempy < 8; tempy++){
+      for(var tempx = 0; tempx < 8; tempx++){
+        cur = validPiece(tempx,tempy);
+        if(cur > max){
+          max = cur;
+          maxx = tempx;
+          maxy = tempy;
+        }
+      }
+    }
+
+    if(max > 0){
+      validPiece(maxx,maxy);
+      grid[maxx][maxy] = player;
+      switchPieces(maxx,maxy);
+    }
+    break;
+    
+    case 3: //AI Hard
+    
+    break;
+  }
+  
+  passTimes = 0;
+
+  if(botColor == 1){
+    player=2;
+    refreshBoard();
+    document.getElementById("Turn").innerHTML="White Turn";
+    if(checkPass() == 1){
+      player = 1;
+      document.getElementById("Turn").innerHTML="Black Turn";
+      passTimes++;
+      alert("Turn passed to Black");
+      if(checkPass() == 1){
+        endGame();
+        return;
+      }
+    }
+  } else if(botColor == 2){
+    player=1;
+    refreshBoard();
+    document.getElementById("Turn").innerHTML="Black Turn";
+    if(checkPass() == 1){
+      player = 2;
+      document.getElementById("Turn").innerHTML="White Turn";
+      passTimes++;
+      alert("Turn passed to White");
+      if(checkPass() == 1){
+        endGame();
+        return;
+      }
+    }
+  }
+}
+/*--------------------------------------------------------------------------- */
 
 /*----------------------------- Direction Check ----------------------------- */
 
@@ -313,10 +400,4 @@ function checkNW(x,y,overOne){
   }
   return overOne;
 }
-/*--------------------------------------------------------------------------- */
-
-/*----------------------------------- AI ------------------------------------ */
-
-
-
 /*--------------------------------------------------------------------------- */
