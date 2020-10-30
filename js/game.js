@@ -1,10 +1,17 @@
 "use strict";
 
-var player=1;          //1 para Preto, 2 para Branco
-var vsBot=0;           //1 para jogos contra o bot, 0 para jogos entre pessoas
-var botDifficulty=0;   //dificuldade do bot, de 1 a 3
-var playerColor=0;     //cor do jogador
-var botColor=0;        //cor do bot
+var player = 1;                    //1 para Preto, 2 para Branco
+var vsBot = 0;                     //1 para jogos contra o bot, 0 para jogos entre pessoas
+var botDifficulty = 0;             //dificuldade do bot, de 1 a 3
+var playerColor = 0;               //cor do jogador
+var botColor = 0;                  //cor do bot
+var playerOneScore = 0;            //Score do jogador 1
+var playerTwoScore = 0;            //Score do jogador 2
+var blackScore = 0;                //Número de peças pretas
+var whiteScore = 0;                //Número de peças brancas
+var passTimes = 0;                 //variável para guardar quantas vezes a jogada foi passada num turno (em caso de 2, é Game Over)
+var N, NE, E, SE, S, SW, W, NW;    //cardinais e intercardinais, usadas para verificar se as direções são válidas nas colocações das peças
+ 
 
 var grid = [
   [0,0,0,0,0,0,0,0],
@@ -17,11 +24,6 @@ var grid = [
   [0,0,0,0,0,0,0,0]
 ];
 
-//variável para guardar quantas vezes a jogada foi passada num turno (em caso de 2, é Game Over)
-var passTimes = 0;
-
-//cardinais e intercardinais, usadas para verificar se as direções são válidas nas colocações das peças
-var N, NE, E, SE, S, SW, W, NW; 
 
 function createGrid(){
   const gameGrid = document.getElementById("grid");
@@ -78,7 +80,6 @@ function selectPiece(x,y){
     player = 2;
     refreshBoard();
     document.getElementById("Turn").innerHTML="White Turn";
-
     if(checkPass() == 1){ //verifica todas as jogadas possíveis do adversário e se não existirem, passa o controlo de volta
       player = 1;
       played = 0;
@@ -86,10 +87,12 @@ function selectPiece(x,y){
       passTimes++;
       alert("Turn passed to Black");
       if(checkPass() == 1){ //se passar duas vezes seguidas, o jogo termina porque nenhum jogador tem jogadas válidas
-        endGame();
+        endGame(0);
         return;
       }
     }
+    getPieceScore();
+    //mudar o inner html do numero das peças
   }
 
   //player 2, peças brancas
@@ -108,10 +111,12 @@ function selectPiece(x,y){
       passTimes++;
       alert("Turn passed to White");
       if(checkPass() == 1){
-        endGame();
+        endGame(0);
         return;
       }
     }
+    getPieceScore();
+    //mudar o inner html do numero das peças
   }
 
   //se o jogador fez a sua jogada e está a lutar contra um bot, então dá a vez ao computador
@@ -209,8 +214,68 @@ function checkPass(){
   return 1;
 }
 
-function endGame(){
-  setTimeout(() => {alert("Game Over");}, 800);
+function getPieceScore(){
+  blackScore = 0;
+  whiteScore = 0;
+
+  for(var i = 0; i < 8; i++){
+    for(var j = 0; j < 8; j++){
+      if(grid[i][j] == 1){
+        blackScore++;
+      } else if(grid[i][j] == 2){
+        whiteScore++;
+      }
+    } 
+  }
+  console.log("Black Score: "+blackScore+"   White Score: "+whiteScore); //mudar para alterar o html da pontuação
+}
+
+function resetGame(){
+
+  grid = [
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,2,1,0,0,0],
+    [0,0,0,1,2,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0]
+  ];
+
+  player = 1;
+  refreshBoard();
+  if(vsBot == 1 && botColor == 1){
+    botTurn();
+    refreshBoard();
+  }
+}
+
+
+function endGame(forfeitFlag){
+
+  if(forfeitFlag == 0){
+    getPieceScore();
+    if(blackScore > whiteScore){
+      alert("Game Over, Black Wins!");
+    }else if(whiteScore > blackScore){
+      alert("Game Over, White Wins!");
+    }
+    else if(whiteScore > blackScore){
+      alert("Game Over, it's a draw.");
+    }  
+  }
+  else if(forfeitFlag == 1){
+    switch (player){
+      case 1:
+      alert("Black forfeits, White Wins!");
+      break;
+    
+      case 2:
+        alert("Black forfeits, Black Wins!");
+      break;
+    }
+  }
 }
 
 /*----------------------------------- AI ------------------------------------ */
@@ -247,7 +312,7 @@ function botTurn(){
     
     break;
   }
-  
+
   passTimes = 0;
 
   if(botColor == 1){
@@ -260,9 +325,10 @@ function botTurn(){
       passTimes++;
       alert("Turn passed to Black");
       if(checkPass() == 1){
-        endGame();
+        endGame(0);
         return;
       }
+      botTurn();
     }
   } else if(botColor == 2){
     player=1;
@@ -274,11 +340,15 @@ function botTurn(){
       passTimes++;
       alert("Turn passed to White");
       if(checkPass() == 1){
-        endGame();
+        endGame(0);
         return;
       }
     }
+    botTurn();
   }
+  
+  getPieceScore();
+  //mudar o inner html do numero das peças
 }
 /*--------------------------------------------------------------------------- */
 
