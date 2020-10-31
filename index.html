@@ -1,199 +1,295 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
     <title>Othello Miguel&Patricia</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/form.css">
-    <script type="text/javascript" src="js/settings.js"></script>
-
-
     <link rel="stylesheet" href="css/game.css">
+    <script src="js/settings.js"></script>
     <script src="js/game.js"></script>
-
     <script src="https://kit.fontawesome.com/a81368914c.js"></script>
-     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <body>
+    <!--Footer com informações sore o jogo-->
+    <div class="footer">
+        <h3 class="esq">Othello 1.0 - Tecnologias Web</h3>
+        <h3>October 2020</h3>
+        <h3 class="dir">Miguel Ramos & Patrícia Vieira</h3>
+    </div>
 
-   <!--Footer com informações sore o jogo-->
-   <div class="footer">
-    <h4 style="display: inline-block; float: left;">Othello 1.0 - Tecnologias Web</h4>
-    <h4 style="display: inline-block;">Outubro 2020</h4>
-    <h4 style="float: right;" >Miguel Ramos & Patrícia Vieira</h4>
-  </div>
-
-  <!--Página Incial-->
-  <div class="startpage" id="spage">
-    <div class="centrar">
-      <img src="img/LogoLetras.png" >
-      <button type="button" class="btn" onclick="showlogin()"> Vamos Jogar 
-        <i class="fas fa-play"></i>
+    <!--Página Incial-->
+    <div class="startpage" id="spage">
+        <div class="centrar">
+            <img src="img/LogoLetras.png" alt="Main Logo">
+            <button type="button" class="btn" onclick="showlogin()"> Let's Play  <i class="fas fa-play"></i>
       </button>
-      
+        </div>
     </div>
-  </div>
 
-  <!--Login e Menu de Jogo-->
-  <!--Barra Superior-->
-  <div class="header" id="header">
-    <img src="img/logopreto.png" style="width: 200px;">
-  </div>
+    <!--Login e Menu de Jogo-->
+    <!--Barra Superior-->
+    <div id="header">
+        <div class="header">
+            <img src="img/logopreto.png" alt="Logo">
+        </div>
+        <!--Menu-->
+        <div class="topnav">
+            <a id="voltarmodo" onclick="showmode()"><i class="fas fa-arrow-left"></i> Back</a>
+            <!--ACABAR-->
+            <a id="voltarregras" onclick="showmode()"><i class="fas fa-arrow-left"></i> Back</a>
+            <a style="float:right" onclick="showbegin()"><i class="fas fa-sign-out-alt"></i> Exit</a>
+        </div>
+    </div>
 
-  <!--Menu-->
-  <div class="topnav" id="topnav">
-    <a id="voltarmodo" onclick="showmode()" ><i class="fas fa-arrow-left"></i></i> Voltar</a>
-    <a id="voltarregras" onclick="showmode()" ><i class="fas fa-arrow-left"></i></i> Voltar</a>
-    <a style="float:right" onclick="showbegin()"><i class="fas fa-sign-out-alt"></i> Sair</a>
-  </div>
 
-  <!--Form de Login-->
-  <div class="layoutrow" id="loginform">
-    <div>
-      <div class="card">
-        <div class="centrar">
-          <div class="login-content ">
-            <form >
-              <h2>Iniciar Sessão</h2>
-              <div class="input-div one">
-                  <div class="i">
-                      <i class="fas fa-user"></i>
-                  </div>
-                  <div class="div">
-                      <h5>Nome do Utilizador</h5>
-                      <input type="text" class="input">
-                  </div>
-              </div>
-              <div class="input-div one">
-                  <div class="i"> 
-                    <i class="fas fa-lock"></i>
-                  </div>
-                  <div class="div">
-                    <h5>Palavra-Passe</h5>
-                    <input type="password" class="input">
+    <!--Form de Login-->
+    <div class="layoutrow" id="loginform">
+        <div class="card">
+            <div class="centrar">
+                <div class="login-content">
+                    <form>
+                        <h1>Login</h1>
+                        <div class="input-div one">
+                            <div class="i">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="div">
+                                <h5>User Name</h5>
+                                <input type="text" class="input">
+                            </div>
+                        </div>
+                        <div class="input-div one">
+                            <div class="i">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <div class="div">
+                                <h5>Password</h5>
+                                <input type="password" class="input">
+                            </div>
+                        </div>
+                        <button type="button" class="btn blogin" onclick="showmode()">Log in</button>
+                    </form>
                 </div>
-              </div>
-              <button type="button" class="btn blogin" onclick="showmode()">Iniciar Sessão</button>
-            </form>
-          </div>
-        </div>
-       </div>
-    </div>
-  </div>
-
-  <!--Menu dos Modos-->
-  <div class="layoutrow" id="modebutton">
-      <div class="card">
-        <div class="centrar">
-          <div class="login-content ">
-          <div class="modojogo">
-            <div class="c1">
-              <button type="button" class="btn bmodo centrar" onclick="showgame(1)">
-                <img src="img/espadab.png"> VS  <img src="img/espadap.png" class="rotate">
-                <!--
-                <i class="fas fa-user"></i>   VS   <i class="fas fa-user"></i>
-                -->
-              </button>
             </div>
-            <div class="c2">
-              <button type="button" class="btn bmodo" onclick="showdif(1)">
-                <img src="img/espadab.png">  VS    <i class="fas fa-robot"></i>
-              </button>
-            </div>  
-          </div>
-          <div>
-            <button type="button" class="btn blogin" onclick="showregras()">Regras</button>
-          </div>  
         </div>
-     </div>
     </div>
-  </div>
 
-  <!--Menu das Dificuldade VS Pc-->
-  <div class="layoutrow" id="difficulty">
-    <div class="card">
-      <div class="centrar">
-        <div class="login-content ">
-        <div class="mododificuldade">
-          <div class="c1">
-            <button type="button" class="btn bmodo" onclick="showcolor(1)">
-              <i class="fas fa-star"></i>
-            </button>
-          </div>
-          <div class="c2">
-            <button type="button" class="btn bmodo" onclick="showcolor(2)">
-              <i class="fas fa-star"></i><i class="fas fa-star"></i>
-            </button>
-          </div> 
-          <div class="c3">
-            <button type="button" class="btn bmodo" onclick="showcolor(3)">
-              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            </button>
-          </div>  
-        </div>
-      </div>
-   </div>
-  </div>
-  </div>
-
-  <!--Cores-->
-  <div class="layoutrow" id="color">
-    <div class="card">
-      <div class="centrar">
-        <div class="login-content ">
-          <div class="modojogo">
-            <div class="c1">
-              <button type="button" class="btn bmodo" onclick="showgame(2)">
-                BRANCO
-              </button>
+    <!--Menu dos Modos-->
+    <div class="layoutrow" id="modebutton">
+        <div class="card">
+            <div class="centrar">
+                <div class="login-content ">
+                    <div class="modojogo">
+                        <div class="c1">
+                            <button type="button" class="btn bmodo centrar" onclick="showgame(1)">
+                                <img src="img/espadab.png" alt="1VS1 White">VS<img src="img/espadap.png"  alt="1VS1 Black" class="rotate">
+                            </button>
+                        </div>
+                        <div class="c2">
+                            <button type="button" class="btn bmodo" onclick="showdif(1)">
+                                <img src="img/espadab.png" alt="1VSPC User"> VS<img src="img/robot.png" alt="1VSPC PC">
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="btn blogin" onclick="showregras()">Rules</button>
+                    </div>
+                </div>
             </div>
-            <div class="c2">
-              <button type="button" class="btn bmodo" onclick="showgame(1)">
-                PRETO
-              </button>
-            </div> 
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 
-
-  <!--Regras do Jogo-->
-  <div class="layoutrow" id="rules">
-    <div>
-      <div class="card">
-        <h2>Regras</h2>
-        <h5>Title description, Dec 7, 2017</h5>
-        <div class="fakeimg" style="height:200px;">Image</div>
-        <p>Some text..</p>
-        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-      </div>
+    <!--Menu das Dificuldade VS Pc-->
+    <div class="layoutrow" id="difficulty">
+        <div class="card">
+            <div class="centrar">
+                <div class="login-content ">
+                    <div class="mododificuldade">
+                        <div class="c1">
+                            <!--Modo Fáil- 1 Estrela-->
+                            <button type="button" class="btn bmodo" onclick="showcolor(1)">
+                                <i class="fas fa-star"></i>
+                            </button>
+                        </div>
+                        <div class="c2">
+                            <!--Modo Médio- 2 Estrelas-->
+                            <button type="button" class="btn bmodo" onclick="showcolor(2)">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </button>
+                        </div>
+                        <div class="c3">
+                            <!--Modo Dificil- 3 Estrelas-->
+                            <button type="button" class="btn bmodo" onclick="showcolor(3)">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
-
-  <!--Jogo/Tabuleiro-->
-  <div class="layoutrow" id="game">
-    <div class="leftcolumn">
-      <div class="card">
-        <div id="Turn">Black Turn</div>
-        <div id="grid"></div>
-        
-      
-      </div>
+    <!--Cores-->
+    <div class="layoutrow" id="color">
+        <div class="card">
+            <div class="centrar">
+                <div class="login-content ">
+                    <div class="modojogo">
+                        <div class="c1">
+                            <button type="button" class="btn bmodo" onclick="showgame(2)">White</button>
+                        </div>
+                        <div class="c2">
+                            <button type="button" class="btn bmodo" onclick="showgame(1)">Black</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <div class="rightcolumn">
-      <div class="card">
-        <i class="fas fa-star"></i>
-        <h2>Pontuação</h2>
-        <div class="fakeimg" style="height:100px;">Image</div>
-        <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-      </div>
-    </div>
-  </div>
 
-  <script type="text/javascript" src="js/main.js"></script>
+
+    <!--Barra Superior-->
+    <div id="headerjogo">
+        <div class="header headerj">
+            <img src="img/logobranco.png" alt="Logo">
+        </div>
+        <!--Menu-->
+        <div class="topnav">
+            <a style="float:right" onclick="showbegin()"><i class="fas fa-sign-out-alt"></i> Exit</a>
+        </div>
+    </div>
+
+
+    <!--Jogo/Tabuleiro-->
+    <div class="layoutrow" id="game">
+        <!--Coluna da Esquerda - Regras e Vitorias-->
+        <div class="leftcolumn">
+            <div class="card">
+                <div>
+                    <button type="button" class="btn blogin" onclick="showregras()">Rules</button>
+                </div>
+                <div>
+                    <button type="button" class="btn blogin" onclick="showresultado()">Results</button>
+                </div>
+            </div>
+        </div>
+        <!--Coluna do Centro - Tabuleiro-->
+        <div class="centercolumn">
+            <div class="card">
+                <div id="Turn">Black Turn</div>
+                <div id="grid"></div>
+            </div>
+        </div>
+        <!--Coluna da Direita - Pontuação-->
+        <div class="rightcolumn">
+            <div class="card">
+                <button type="button" class="btn" onclick="endGame(1)"> Give up </button>
+                <h2>Points</h2>
+                <i class="fas fa-star"></i>
+                <div id="pontpartida">
+                    <table style="width:100%; border: 1px solid #000000;">
+                        <tr>
+                            <th>Player</th>
+                            <th>Pieces</th>
+                        </tr>
+                        <tr>
+                            <td>White</td>
+                            <td id="pontjbranco">2</td>
+                        </tr>
+                        <tr>
+                            <td>Black</td>
+                            <td id="pontjpreto">2</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--Pop Up Regras-->
+    <div id="popregras" class="modal centrar">
+        <div class="modal-content">
+            <span class="close" onclick="closeregras()">&times;</span>
+            <div class="regrascolunas centrar">
+                <h1>Game Rules</h1>
+                <div class="esq">
+                    <h2>Board / Pieces</h2>
+                    <p>Grelha com 8 linhas por 8 colunas</p>
+                    <p>As peças denominam-se discos</p>
+                    <p>Com 2 face de diferentes tonalidades: lado claro e lado escuro </p>
+                    <p></p>
+                </div>
+                <div class="esq">
+                    <h2>Play</h2>
+                </div>
+                <div class="esq">
+                    <h2>Pass</h2>
+                </div>
+                <div class="esq">
+                    <h2>Finished</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Pop Vitorias-->
+    <div id="popvitorias" class="modal centrar">
+        <div class="modalcontent ">
+            <span class="close" onclick="closeresultado()">&times;</span>
+            <div id="pontjogo" class="centrar">
+                <h1>Match Results</h1>
+                <table>
+                    <tr>
+                        <th>
+                            <h2>Player</h2>
+                        </th>
+                        <th>
+                            <h2>Victories</h2>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h3>White</h3>
+                        </td>
+                        <td>
+                            <h3 id="vitoriasbranco">
+                                0
+                            </h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h3>Black</h3>
+                        </td>
+                        <td>
+                            <h3 id="vitoriaspreto">
+                                0
+                            </h3>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <!--Pop Ganhou-->
+    <div id="popganhou" class="modal centrar">
+        <div class="modal-content">
+            <!--RETIRAR-->
+            <span class="close" onclick="closepopganhou()">&times;</span>
+            <h1 id="legenda"></h1>
+            <button type="button" class="btn" onclick="resetGame()">Play again</button>
+
+        </div>
+    </div>
+
+    <!--Js do Form de Login-->
+    <script src="js/login.js"></script>
 </body>
-</html>
 
+</html>

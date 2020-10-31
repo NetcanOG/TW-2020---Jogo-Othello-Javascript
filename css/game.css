@@ -5,49 +5,43 @@
   text-align: center;
 }*/
 
-H1 {
-  font-size: 24px;
-}
-
 #Turn {
-  font-size: 18px;
+    font-size: 40px;
 }
 
 #grid {
-  margin: auto;
-  text-align: center;
-  position: relative;
-  width: 400px;
-  height: 400px;
-  background: white;
-  display: inline-flex;
-  flex-wrap: wrap;
-  border-style: solid;
-  border-width: 10px;
-  border-radius: 10px;
-  border-color: #222;
-  margin: 6px;
+    margin: auto;
+    text-align: center;
+    position: relative;
+    background: white;
+    display: inline-flex;
+    flex-wrap: wrap;
+    border-style: solid;
+    border-width: 10px;
+    border-radius: 10px;
+    border-color: #222;
+    margin: 6px;
 }
 
 .row {
-  display: table-row;
+    display: table-row;
 }
 
 .cell {
-  width: 46px;
-  height: 46px;
-  border-style: solid;
-  border-width: 2px;
-  border-color: black;
-  background: green;
+    width: 90px;
+    height: 90px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    background: green;
 }
 
 .piece {
-  width: 36px;
-  height: 36px;
-  border-width: 2px;
-  border-style: solid;
-  border-color: green;
-  border-radius: 36px;
-  margin: 4px;
+    width: 80px;
+    height: 80px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: green;
+    border-radius: 50px;
+    margin: 4px;
 }
