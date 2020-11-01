@@ -190,53 +190,59 @@
                     <h1> <i class="fas fa-star"></i> Points</h1>
                     <div id="pontpartida" class="centrar">
                         <table>
-                            <th>
-                                <h2>Player</h2>
-                            </th>
-                            <th>
-                                <h2>Pieces</h2>
-                            </th>
-                            <tr>
-                                <td>
-                                    <h3>
-                                        White
-                                    </h3>
-                                </td>
-                                <td>
-                                    <h3 id="pontjbranco">2</h3>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h3>
-                                        Black
-                                    </h3>
-                                </td>
+                            <thead>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th class="h2">
+                                        Player
+                                    </th>
+                                    <th class="h2">
+                                        Pieces
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h3>
+                                            White
+                                        </h3>
+                                    </td>
+                                    <td>
+                                        <h3 id="pontjbranco">2</h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h3>
+                                            Black
+                                        </h3>
+                                    </td>
 
-                                <td>
-                                    <h3 id="pontjpreto">2</h3>
-                                </td>
-                            </tr>
+                                    <td>
+                                        <h3 id="pontjpreto">2</h3>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
             </div>
             <div id="desistir" class="card cont">
                 <div class="top">
-                    <button type="button" class="btn play" onclick="endGame(1)"><i class="fas fa-running"></i> Give up </i></button>
+                    <button type="button" class="btn play" onclick="endGame(1)"><i class="fas fa-running"></i> Give up</button>
                 </div>
             </div>
             <!--Pop Ganhou-->
             <div id="popganhou" class="centrar">
                 <div class="top">
-                    <h1 id="legenda"></h1>
+                    <h1 id="legenda">0</h1>
                     <button type="button" class="btn play" onclick="resetGame()">Play again</button>
 
                 </div>
             </div>
             <div id="popturn" class="centrar">
                 <div class="top">
-                    <h1 id="legenda2"></h1>
+                    <h1 id="legenda2">0</h1>
                 </div>
             </div>
         </div>
@@ -270,30 +276,34 @@
             <div id="pontjogo" class="centrar">
                 <h1>Match Results</h1>
                 <table>
-                    <tr>
-                        <th>
-                            <h2>Player</h2>
-                        </th>
-                        <th>
-                            <h2>Victories</h2>
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h3>White</h3>
-                        </td>
-                        <td>
-                            <h3 id="vitoriasbranco">0</h3>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h3>Black</h3>
-                        </td>
-                        <td>
-                            <h3 id="vitoriaspreto">0</h3>
-                        </td>
-                    </tr>
+                    <thead>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="h2">
+                                Player
+                            </th>
+                            <th class="h2">
+                                Victories
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h3>White</h3>
+                            </td>
+                            <td>
+                                <h3 id="vitoriasbranco">0</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h3>Black</h3>
+                            </td>
+                            <td>
+                                <h3 id="vitoriaspreto">0</h3>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
 
@@ -303,7 +313,7 @@
     <!--Pop Desistir-->
     <div id="popdesistiu" class="modal centrar">
         <div class="modal-desistencias">
-            <h1 id="legenda1"></h1>
+            <h1 id="legenda1">0</h1>
             <button type="button" class="btn play" onclick="resetGame()">Play again</button>
 
         </div>
