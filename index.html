@@ -38,8 +38,7 @@
         <!--Menu-->
         <div class="topnav">
             <a id="voltarmodo" onclick="showmode()"><i class="fas fa-arrow-left"></i> Back</a>
-            <!--ACABAR-->
-            <a id="voltarregras" onclick="showmode()"><i class="fas fa-arrow-left"></i> Back</a>
+            <a id="voltardificuldade" onclick="showdif()"><i class="fas fa-arrow-left"></i> Back</a>
             <a style="float:right" onclick="showbegin()"><i class="fas fa-sign-out-alt"></i> Exit</a>
         </div>
     </div>
@@ -153,12 +152,12 @@
 
     <!--Barra Superior-->
     <div id="headerjogo">
-        <div class="header headerj">
-            <img src="img/logobranco.png" alt="Logo">
-        </div>
+        <img src="img/logobranco.png" alt="Logo" style="width: 100px;">
         <!--Menu-->
         <div class="topnav">
-            <a style="float:right" onclick="showbegin()"><i class="fas fa-sign-out-alt"></i> Exit</a>
+            <a style="float:right" onclick="showbegin()">
+                <i class="fas fa-sign-out-alt"></i> Exit
+            </a>
         </div>
     </div>
 
@@ -169,41 +168,74 @@
         <div class="leftcolumn">
             <div class="card">
                 <div>
-                    <button type="button" class="btn blogin" onclick="showregras()">Rules</button>
+                    <button type="button" class="btn blogin" onclick="showregras()"><i class="fas fa-scroll"></i> Rules</button>
                 </div>
                 <div>
-                    <button type="button" class="btn blogin" onclick="showresultado()">Results</button>
+                    <button type="button" class="btn blogin" onclick="showresultado()"><i class="fas fa-trophy"></i> Results</button>
                 </div>
             </div>
         </div>
         <!--Coluna do Centro - Tabuleiro-->
         <div class="centercolumn">
             <div class="card">
-                <div id="Turn">Black Turn</div>
+                <h1 id="Turn">Black Turn</h1>
                 <div id="grid"></div>
             </div>
         </div>
         <!--Coluna da Direita - Pontuação-->
         <div class="rightcolumn">
-            <div class="card">
-                <button type="button" class="btn" onclick="endGame(1)"> Give up </button>
-                <h2>Points</h2>
-                <i class="fas fa-star"></i>
-                <div id="pontpartida">
-                    <table style="width:100%; border: 1px solid #000000;">
-                        <tr>
-                            <th>Player</th>
-                            <th>Pieces</th>
-                        </tr>
-                        <tr>
-                            <td>White</td>
-                            <td id="pontjbranco">2</td>
-                        </tr>
-                        <tr>
-                            <td>Black</td>
-                            <td id="pontjpreto">2</td>
-                        </tr>
-                    </table>
+            <div class="card cont">
+                <div class="top points">
+                    <h1> <i class="fas fa-star"></i> Points</h1>
+                    <div id="pontpartida" class="centrar">
+                        <table>
+                            <th>
+                                <h2>Player</h2>
+                            </th>
+                            <th>
+                                <h2>Pieces</h2>
+                            </th>
+                            <tr>
+                                <td>
+                                    <h3>
+                                        White
+                                    </h3>
+                                </td>
+                                <td>
+                                    <h3 id="pontjbranco">2</h3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h3>
+                                        Black
+                                    </h3>
+                                </td>
+
+                                <td>
+                                    <h3 id="pontjpreto">2</h3>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div id="desistir" class="card cont">
+                <div class="top">
+                    <button type="button" class="btn play" onclick="endGame(1)"><i class="fas fa-running"></i> Give up </i></button>
+                </div>
+            </div>
+            <!--Pop Ganhou-->
+            <div id="popganhou" class="centrar">
+                <div class="top">
+                    <h1 id="legenda"></h1>
+                    <button type="button" class="btn play" onclick="resetGame()">Play again</button>
+
+                </div>
+            </div>
+            <div id="popturn" class="centrar">
+                <div class="top">
+                    <h1 id="legenda2"></h1>
                 </div>
             </div>
         </div>
@@ -213,33 +245,26 @@
 
     <!--Pop Up Regras-->
     <div id="popregras" class="modal centrar">
-        <div class="modal-content">
+        <div class="modal-regras">
             <span class="close" onclick="closeregras()">&times;</span>
             <div class="regrascolunas centrar">
                 <h1>Game Rules</h1>
-                <div class="esq">
-                    <h2>Board / Pieces</h2>
-                    <p>Grelha com 8 linhas por 8 colunas</p>
-                    <p>As peças denominam-se discos</p>
-                    <p>Com 2 face de diferentes tonalidades: lado claro e lado escuro </p>
-                    <p></p>
-                </div>
-                <div class="esq">
-                    <h2>Play</h2>
-                </div>
-                <div class="esq">
-                    <h2>Pass</h2>
-                </div>
-                <div class="esq">
-                    <h2>Finished</h2>
+                <div class="texto">
+                    <p>The game is played in an 8 by 8 board, with the middle 4 cells already containing pieces when the game begins. The top left and bottom right corners have white pieces with the top right and bottom left corners being black. In Othello,
+                        the Black player always moves first. </p>
+                    <p>There can only be one piece placed per turn, and a piece can only be placed in an empty cell adjacent to a piece of the opposite color, such that a row of 1 or more of the opponent's discs is flanked by the new disc and an existing
+                        disc of the player's color. All of the opponent's discs between these two discs are turned over to match the player's color.</p>
+                    <p>If the current player cannot make a valid move, the turn is passed to the other player. The game is over when neither player can make a move, the board is full, or one of the player concedes the victory to the opponent. In the first
+                        two cases, the player with the most pieces of their color on the board wins.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!--Pop Vitorias-->
+    <!--Pop Resultados/Vitorias-->
     <div id="popvitorias" class="modal centrar">
-        <div class="modalcontent ">
+        <div class="modal-vitorias">
             <span class="close" onclick="closeresultado()">&times;</span>
             <div id="pontjogo" class="centrar">
                 <h1>Match Results</h1>
@@ -257,9 +282,7 @@
                             <h3>White</h3>
                         </td>
                         <td>
-                            <h3 id="vitoriasbranco">
-                                0
-                            </h3>
+                            <h3 id="vitoriasbranco">0</h3>
                         </td>
                     </tr>
                     <tr>
@@ -267,9 +290,7 @@
                             <h3>Black</h3>
                         </td>
                         <td>
-                            <h3 id="vitoriaspreto">
-                                0
-                            </h3>
+                            <h3 id="vitoriaspreto">0</h3>
                         </td>
                     </tr>
                 </table>
@@ -277,13 +298,12 @@
 
         </div>
     </div>
-    <!--Pop Ganhou-->
-    <div id="popganhou" class="modal centrar">
-        <div class="modal-content">
-            <!--RETIRAR-->
-            <span class="close" onclick="closepopganhou()">&times;</span>
-            <h1 id="legenda"></h1>
-            <button type="button" class="btn" onclick="resetGame()">Play again</button>
+
+    <!--Pop Desistir-->
+    <div id="popdesistiu" class="modal centrar">
+        <div class="modal-desistencias">
+            <h1 id="legenda1"></h1>
+            <button type="button" class="btn play" onclick="resetGame()">Play again</button>
 
         </div>
     </div>

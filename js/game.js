@@ -12,7 +12,6 @@ var whiteScore = 0; //Número de peças brancas
 var passTimes = 0; //variável para guardar quantas vezes a jogada foi passada num turno (em caso de 2, é Game Over)
 var N, NE, E, SE, S, SW, W, NW; //cardinais e intercardinais, usadas para verificar se as direções são válidas nas colocações das peças
 
-
 var grid = [
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -25,14 +24,14 @@ var grid = [
 ];
 
 var weightGrid = [
-    [20,-10,10,3,3,10,-10, 20],
-    [-10,-20,-3,-3,-3,-3,-20,-10],
-    [10,-3,9,1,1,9,-3,10],
-    [3,-3,1,1,1,1,-3,3],
-    [3,-3,1,1,1,1,-3,3],
-    [10,-3,9,1,1,9,-3,10],
-    [-10,-20,-3,-3,-3,-3,-20,-10],
-    [20,-10,10,3,3,10,-10,20]
+    [20, -10, 10, 3, 3, 10, -10, 20],
+    [-10, -20, -3, -3, -3, -3, -20, -10],
+    [10, -3, 9, 1, 1, 9, -3, 10],
+    [3, -3, 1, 1, 1, 1, -3, 3],
+    [3, -3, 1, 1, 1, 1, -3, 3],
+    [10, -3, 9, 1, 1, 9, -3, 10],
+    [-10, -20, -3, -3, -3, -3, -20, -10],
+    [20, -10, 10, 3, 3, 10, -10, 20]
 ];
 
 
@@ -68,7 +67,7 @@ function refreshBoard() {
     for (var tempy = 0; tempy < 8; tempy++) {
         for (var tempx = 0; tempx < 8; tempx++) {
             if (grid[tempx][tempy] == 0) {
-                document.getElementById("cell" + tempx + tempy).childNodes[0].style.backgroundColor = "green";
+                document.getElementById("cell" + tempx + tempy).childNodes[0].style.backgroundColor = "#007D15";
             } else if (grid[tempx][tempy] == 1) {
                 document.getElementById("cell" + tempx + tempy).childNodes[0].style.backgroundColor = "#000000";
             } else if (grid[tempx][tempy] == 2) {
@@ -76,12 +75,11 @@ function refreshBoard() {
             }
         }
     }
-    /*Close Modal*/
-    closepopganhou();
 }
 
 //Adiciona uma peça, depois de verificar que é uma posição válida
 function selectPiece(x, y) {
+    document.getElementById("popturn").style.display = "none";
     passTimes = 0;
     var played = 0;
 
@@ -98,7 +96,9 @@ function selectPiece(x, y) {
             played = 0;
             document.getElementById("Turn").innerHTML = "Black Turn";
             passTimes++;
-            alert("Turn passed to Black");
+            document.getElementById("popturn").style.display = "block";
+            document.getElementById("legenda2").innerHTML = "Turn passed to Black";
+            //alert("Turn passed to Black");
             if (checkPass() == 1) { //se passar duas vezes seguidas, o jogo termina porque nenhum jogador tem jogadas válidas
                 endGame(0);
                 return;
@@ -122,7 +122,9 @@ function selectPiece(x, y) {
             played = 0;
             document.getElementById("Turn").innerHTML = "Black Turn";
             passTimes++;
-            alert("Turn passed to White");
+            document.getElementById("popturn").style.display = "block";
+            document.getElementById("legenda2").innerHTML = "Turn passed to White";
+            //alert("Turn passed to White");
             if (checkPass() == 1) {
                 endGame(0);
                 return;
@@ -139,26 +141,26 @@ function selectPiece(x, y) {
 }
 
 //verificamos a validade das direções, 0 se a dreção não for válida, 1 ou mais para o número de peças que podem ser alteradas
-function validPiece(x, y){
-   
-   if((grid[x][y] == 0) && (checkAround(x, y) == 1)){
-    N = checkN(x, y, 0);
-    NE = checkNE(x, y, 0);
-    E = checkE(x, y, 0);
-    SE = checkSE(x, y, 0);
-    S = checkS(x, y, 0);
-    SW = checkSW(x, y, 0);
-    W = checkW(x, y, 0);
-    NW = checkNW(x, y, 0);
-    if ((N == 0) && (NE == 0) && (E == 0) && (SE == 0) && (S == 0) && (SW == 0) && (W == 0) && (NW == 0)){
-      return 0;
+function validPiece(x, y) {
+
+    if ((grid[x][y] == 0) && (checkAround(x, y) == 1)) {
+        N = checkN(x, y, 0);
+        NE = checkNE(x, y, 0);
+        E = checkE(x, y, 0);
+        SE = checkSE(x, y, 0);
+        S = checkS(x, y, 0);
+        SW = checkSW(x, y, 0);
+        W = checkW(x, y, 0);
+        NW = checkNW(x, y, 0);
+        if ((N == 0) && (NE == 0) && (E == 0) && (SE == 0) && (S == 0) && (SW == 0) && (W == 0) && (NW == 0)) {
+            return 0;
+        }
+        return N + NE + E + SE + S + SW + W + NW;
+    } else if ((grid[x][y] != 0) || (checkAround(x, y) == 0)) {
+        return 0;
     }
-    return N + NE + E + SE + S + SW + W + NW;
-  }else if((grid[x][y] != 0) || (checkAround(x, y) == 0)){
-    return 0;
-  }
 }
-  
+
 //verifica as peças à volta da coordenada (x,y), retorna 1 se for uma posição válida, 0 se não
 function checkAround(x, y) {
     for (var tempy = y - 1; tempy <= y + 1; tempy++) {
@@ -245,10 +247,13 @@ function getPieceScore() {
     }
     document.getElementById("pontjpreto").innerHTML = blackScore;
     document.getElementById("pontjbranco").innerHTML = whiteScore;
-    console.log("Black Score: " + blackScore + "   White Score: " + whiteScore);
 }
 
 function resetGame() {
+    document.getElementById("Turn").innerHTML = "Black Turn";
+    document.getElementById("popdesistiu").style.display = "none";
+    document.getElementById("popganhou").style.display = "none";
+    document.getElementById("desistir").style.display = "block";
 
     grid = [
         [0, 0, 0, 0, 0, 0, 0, 0],
@@ -267,114 +272,118 @@ function resetGame() {
         botTurn();
         refreshBoard();
     }
+    getPieceScore();
+
 }
 
 
 function endGame(forfeitFlag) {
 
-  if(forfeitFlag == 0){
-    getPieceScore();
-    if(blackScore > whiteScore){
-      showpopganhou(3);
-      playerOneScore++;
-    }else if(whiteScore > blackScore){
-      showpopganhou(4);
-      playerTwoScore++;
-    }else if(whiteScore == blackScore){
-      showpopganhou(5);
+    if (forfeitFlag == 0) {
+        getPieceScore();
+        if (blackScore > whiteScore) {
+            showpopganhou(3);
+            playerOneScore++;
+            document.getElementById("vitoriaspreto").innerHTML = playerOneScore;
+        } else if (whiteScore > blackScore) {
+            showpopganhou(4);
+            playerTwoScore++;
+            document.getElementById("vitoriasbranco").innerHTML = playerTwoScore;
+        } else if (whiteScore == blackScore) {
+            showpopganhou(5);
+        }
+    } else if (forfeitFlag == 1) {
+        if (player == 1) {
+            showpopganhou(1);
+            playerTwoScore++;
+            document.getElementById("vitoriasbranco").innerHTML = playerTwoScore;
+        } else if (player == 2) {
+            showpopganhou(2);
+            playerOneScore++;
+            document.getElementById("vitoriaspreto").innerHTML = playerOneScore;
+        }
     }
-  }
-  else if(forfeitFlag == 1){
-    if(player == 1){
-      showpopganhou(1);
-      playerTwoScore++;
-    }else if(player == 2){
-      showpopganhou(2);
-      playerOneScore++;
-    }
-  }
 }
 /*----------------------------------- AI ------------------------------------ */
 
 function botTurn() {
-
+    document.getElementById("popturn").style.display = "none";
     switch (botDifficulty) {
-        
-      case 1: //AI Easy - Escolhe uma peça ao calhas que seja válida
-      var randx = Math.floor(Math.random() * 8);
-      var randy = Math.floor(Math.random() * 8);
-      
-      while(validPiece(randx,randy) == 0){
-        randx = Math.floor(Math.random() * 8);
-        randy = Math.floor(Math.random() * 8);
-      }
-      grid[randx][randy] = player;
-      switchPieces(randx,randy);
-      
-      break;
-      
-      case 2: //AI Medium - Escolhe a peça que "come" mais peças adversárias
-      var max = 0,
-      cur = 0,
-      maxx = 0,
-      maxy = 0;
-      
-      for(var tempy = 0; tempy < 8; tempy++) {
-        for(var tempx = 0; tempx < 8; tempx++) {
-          cur = validPiece(tempx, tempy);
-          if(cur > max) {
-            max = cur;
-            maxx = tempx;
-            maxy = tempy;
-          }
-        }
-      }
-      
-      if(max > 0) {
-        validPiece(maxx, maxy);
-        grid[maxx][maxy] = player;
-        switchPieces(maxx, maxy);
-      }
 
-      break;
-      
-      case 3: //AI Hard - Igual ao médio mas adicionado ao valor de máx o peso relativo da posição através da grid de pesos
-      var max = -99,
-      cur = 0,
-      maxx = 0,
-      maxy = 0;
-      
-      for(var tempy = 0; tempy < 8; tempy++) {
-        for(var tempx = 0; tempx < 8; tempx++) {
-          cur = validPiece(tempx, tempy);
-          if(cur > 0) {
-            weightGrid[tempx][tempy] = cur + weightGrid[tempx][tempy];
-          }
-          else if(cur == 0){
-            weightGrid[tempx][tempy] = "F";
-          }
-        }
-      }
+        case 1: //AI Easy - Escolhe uma peça ao calhas que seja válida
+            var randx = Math.floor(Math.random() * 8);
+            var randy = Math.floor(Math.random() * 8);
 
-      for(var tempy = 0; tempy < 8; tempy++){
-        for(var tempx = 0; tempx < 8; tempx++){
-          if((weightGrid[tempx][tempy] > max) && (weightGrid[tempx][tempy] != "F")){
-            max = weightGrid[tempx][tempy];
-            maxx = tempx;
-            maxy = tempy;
-          }
-        }
-      }
+            while (validPiece(randx, randy) == 0) {
+                randx = Math.floor(Math.random() * 8);
+                randy = Math.floor(Math.random() * 8);
+            }
+            grid[randx][randy] = player;
+            switchPieces(randx, randy);
 
-      if(max != -99) {
-        validPiece(maxx, maxy);
-        grid[maxx][maxy] = player;
-        switchPieces(maxx, maxy);
-      }
-      resetWeightedGrid();
-      break;
+            break;
+
+        case 2: //AI Medium - Escolhe a peça que "come" mais peças adversárias
+            var max = 0,
+                cur = 0,
+                maxx = 0,
+                maxy = 0;
+
+            for (var tempy = 0; tempy < 8; tempy++) {
+                for (var tempx = 0; tempx < 8; tempx++) {
+                    cur = validPiece(tempx, tempy);
+                    if (cur > max) {
+                        max = cur;
+                        maxx = tempx;
+                        maxy = tempy;
+                    }
+                }
+            }
+
+            if (max > 0) {
+                validPiece(maxx, maxy);
+                grid[maxx][maxy] = player;
+                switchPieces(maxx, maxy);
+            }
+
+            break;
+
+        case 3: //AI Hard - Igual ao médio mas adicionado ao valor de máx o peso relativo da posição através da grid de pesos
+            var max = -99,
+                cur = 0,
+                maxx = 0,
+                maxy = 0;
+
+            for (var tempy = 0; tempy < 8; tempy++) {
+                for (var tempx = 0; tempx < 8; tempx++) {
+                    cur = validPiece(tempx, tempy);
+                    if (cur > 0) {
+                        weightGrid[tempx][tempy] = cur + weightGrid[tempx][tempy];
+                    } else if (cur == 0) {
+                        weightGrid[tempx][tempy] = "F";
+                    }
+                }
+            }
+
+            for (var tempy = 0; tempy < 8; tempy++) {
+                for (var tempx = 0; tempx < 8; tempx++) {
+                    if ((weightGrid[tempx][tempy] > max) && (weightGrid[tempx][tempy] != "F")) {
+                        max = weightGrid[tempx][tempy];
+                        maxx = tempx;
+                        maxy = tempy;
+                    }
+                }
+            }
+
+            if (max != -99) {
+                validPiece(maxx, maxy);
+                grid[maxx][maxy] = player;
+                switchPieces(maxx, maxy);
+            }
+            resetWeightedGrid();
+            break;
     }
-    
+
     passTimes = 0;
 
     if (botColor == 1) {
@@ -385,7 +394,9 @@ function botTurn() {
             player = 1;
             document.getElementById("Turn").innerHTML = "Black Turn";
             passTimes++;
-            alert("Turn passed to Black");
+            document.getElementById("popturn").style.display = "block";
+            document.getElementById("legenda2").innerHTML = "Turn passed to Black";
+            //alert("Turn passed to Black");
             if (checkPass() == 1) {
                 endGame(0);
                 return;
@@ -400,7 +411,9 @@ function botTurn() {
             player = 2;
             document.getElementById("Turn").innerHTML = "White Turn";
             passTimes++;
-            alert("Turn passed to White");
+            document.getElementById("popturn").style.display = "block";
+            document.getElementById("legenda2").innerHTML = "Turn passed to White";
+            //alert("Turn passed to White");
             if (checkPass() == 1) {
                 endGame(0);
                 return;
@@ -411,16 +424,16 @@ function botTurn() {
     getPieceScore();
 }
 
-function resetWeightedGrid(){
+function resetWeightedGrid() {
     weightGrid = [
-        [20,-10,10,3,3,10,-10, 20],
-        [-10,-20,-3,-3,-3,-3,-20,-10],
-        [10,-3,9,1,1,9,-3,10],
-        [3,-3,1,1,1,1,-3,3],
-        [3,-3,1,1,1,1,-3,3],
-        [10,-3,9,1,1,9,-3,10],
-        [-10,-20,-3,-3,-3,-3,-20,-10],
-        [20,-10,10,3,3,10,-10,20]
+        [20, -10, 10, 3, 3, 10, -10, 20],
+        [-10, -20, -3, -3, -3, -3, -20, -10],
+        [10, -3, 9, 1, 1, 9, -3, 10],
+        [3, -3, 1, 1, 1, 1, -3, 3],
+        [3, -3, 1, 1, 1, 1, -3, 3],
+        [10, -3, 9, 1, 1, 9, -3, 10],
+        [-10, -20, -3, -3, -3, -3, -20, -10],
+        [20, -10, 10, 3, 3, 10, -10, 20]
     ];
 }
 /*--------------------------------------------------------------------------- */

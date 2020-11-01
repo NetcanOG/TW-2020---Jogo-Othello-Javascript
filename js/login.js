@@ -41,31 +41,31 @@ function closeresultado() {
 
 /*Ganhou */
 function showpopganhou(player) {
-    document.getElementById("popganhou").style.display = "block";
+    document.getElementById("popturn").style.display = "none";
     switch (player) {
         case 1:
-            document.getElementById("legenda").innerHTML = "Black forfeits, White Won!";
+            document.getElementById("popdesistiu").style.display = "block";
+            document.getElementById("legenda1").innerHTML = "Black forfeits, White Won!";
             break;
         case 2:
-            document.getElementById("legenda").innerHTML = "White forfeits, Black Won!";
+            document.getElementById("popdesistiu").style.display = "block";
+            document.getElementById("legenda1").innerHTML = "White forfeits, Black Won!";
             break;
         case 3:
+            document.getElementById("popganhou").style.display = "block";
             document.getElementById("legenda").innerHTML = "Game over, Black Won!";
             break;
         case 4:
+            document.getElementById("popganhou").style.display = "block";
             document.getElementById("legenda").innerHTML = "Game over, White Won!";
             break;
         case 5:
+            document.getElementById("popganhou").style.display = "block";
             document.getElementById("legenda").innerHTML = "End of the game, it's a tie!!";
             break;
     }
+    document.getElementById("desistir").style.display = "none";
 }
-
-function closepopganhou() {
-    document.getElementById("popganhou").style.display = "none";
-}
-
-
 
 window.onclick = function(event) {
     if (event.target == document.getElementById("popregras")) {

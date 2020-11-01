@@ -8,12 +8,13 @@ function showlogin() {
     document.getElementById("spage").style.display = "none";
     document.getElementById("header").style.display = "block";
     document.getElementById("loginform").style.display = "block";
+
 }
 
 function showmode() {
     document.getElementById("loginform").style.display = "none";
     document.getElementById("voltarmodo").style.display = "none";
-    document.getElementById("voltarregras").style.display = "none";
+    document.getElementById("voltardificuldade").style.display = "none";
     document.getElementById("modebutton").style.display = "block";
     document.getElementById("difficulty").style.display = "none";
 }
@@ -21,12 +22,15 @@ function showmode() {
 function showdif(bot) {
     document.getElementById("modebutton").style.display = "none";
     document.getElementById("voltarmodo").style.display = "block";
+    document.getElementById("voltardificuldade").style.display = "none";
     document.getElementById("difficulty").style.display = "block";
+    document.getElementById("color").style.display = "none";
     vsBot = bot;
 }
 
 function showcolor(diff) {
     document.getElementById("color").style.display = "block";
+    document.getElementById("voltardificuldade").style.display = "block";
     document.getElementById("voltarmodo").style.display = "none";
     document.getElementById("difficulty").style.display = "none";
     botDifficulty = diff;
