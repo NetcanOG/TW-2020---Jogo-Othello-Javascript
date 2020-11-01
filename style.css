@@ -13,7 +13,9 @@
     #difficulty,
     #color,
     #game,
-    #popganhou {
+    #popganhou,
+    #popdesistiu,
+    #popturn {
         display: none;
     }
     /*Centra os elementos tanto verticalmente como horizontalmente*/
