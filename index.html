@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="settings.js"></script>
     <script src="game.js"></script>
+    <script src="onlinegame.js"></script>
     <script src="https://kit.fontawesome.com/a81368914c.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -55,7 +56,7 @@
                             </div>
                             <div class="div">
                                 <h5>User Name</h5>
-                                <input type="text" class="input">
+                                <input type="text" class="input" id="username">
                             </div>
                         </div>
                         <div class="input-div one">
@@ -64,10 +65,10 @@
                             </div>
                             <div class="div">
                                 <h5>Password</h5>
-                                <input type="password" class="input">
+                                <input type="password" class="input" id="password">
                             </div>
                         </div>
-                        <button type="button" class="btn blogin" onclick="showmode()">Log in</button>
+                        <button type="button" class="btn blogin" onclick="register()">Log in</button>
                     </form>
                 </div>
             </div>
