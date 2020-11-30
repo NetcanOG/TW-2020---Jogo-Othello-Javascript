@@ -11,8 +11,6 @@ var blackScore = 0; //Número de peças pretas
 var whiteScore = 0; //Número de peças brancas
 var passTimes = 0; //variável para guardar quantas vezes a jogada foi passada num turno (em caso de 2, é Game Over)
 var N, NE, E, SE, S, SW, W, NW; //cardinais e intercardinais, usadas para verificar se as direções são válidas nas colocações das peças
-var isOnline = 0; //se for um jogo online, o valor guardado passa para 1
-var onlineColor = 0; //cor do jogador local
 
 var grid = [
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -35,18 +33,6 @@ var weightGrid = [
     [-10, -20, -3, -3, -3, -3, -20, -10],
     [20, -10, 10, 3, 3, 10, -10, 20]
 ];
-
-function setOnline(color){
-  isOnline = 1;
-
-  if(color == "black"){
-      player = 1;
-  }
-  else if(color == "white"){
-      player = 2;
-  }
-}
-
 
 function createGrid() {
     const gameGrid = document.getElementById("grid");
@@ -153,64 +139,6 @@ function selectPiece(x, y) {
         botTurn();
     }
 }
-
-function selectPieceOnline(x, y) {
-    document.getElementById("popturn").style.display = "none";
-    passTimes = 0;
-    var played = 0;
-
-    //player 1, peças pretas
-    if ((player == 1) && validPiece(x, y) >= 1 && onlineColor == 1) {
-        grid[x][y] = 1;
-        switchPieces(x, y);
-        played = 1;
-        player = 2;
-        refreshBoard();
-        document.getElementById("Turn").innerHTML = "White Turn";
-        if (checkPass() == 1) { //verifica todas as jogadas possíveis do adversário e se não existirem, passa o controlo de volta
-            player = 1;
-            played = 0;
-            document.getElementById("Turn").innerHTML = "Black Turn";
-            passTimes++;
-            document.getElementById("popturn").style.display = "block";
-            document.getElementById("legenda2").innerHTML = "Turn passed to Black";
-            //alert("Turn passed to Black");
-            if (checkPass() == 1) { //se passar duas vezes seguidas, o jogo termina porque nenhum jogador tem jogadas válidas
-                endGame(0);
-                return;
-            }
-        }
-        getPieceScore();
-        //mudar o inner html do numero das peças
-    }
-
-    //player 2, peças brancas
-    else if ((player == 2) && validPiece(x, y) >= 1 && onlineColor == 2) {
-        grid[x][y] = 2;
-        switchPieces(x, y);
-        played = 1;
-        player = 1;
-        refreshBoard();
-        document.getElementById("Turn").innerHTML = "Black Turn";
-
-        if (checkPass() == 1) {
-            player = 2;
-            played = 0;
-            document.getElementById("Turn").innerHTML = "Black Turn";
-            passTimes++;
-            document.getElementById("popturn").style.display = "block";
-            document.getElementById("legenda2").innerHTML = "Turn passed to White";
-            //alert("Turn passed to White");
-            if (checkPass() == 1) {
-                endGame(0);
-                return;
-            }
-        }
-        getPieceScore();
-        //mudar o inner html do numero das peças
-    }
-}
-
 
 
 //verificamos a validade das direções, 0 se a dreção não for válida, 1 ou mais para o número de peças que podem ser alteradas
