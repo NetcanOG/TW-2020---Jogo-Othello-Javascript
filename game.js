@@ -34,6 +34,7 @@ var weightGrid = [
     [20, -10, 10, 3, 3, 10, -10, 20]
 ];
 
+
 function createGrid() {
     const gameGrid = document.getElementById("grid");
 
@@ -49,8 +50,7 @@ function createGrid() {
             piece.className = "piece";
 
             cell.setAttribute("id", "cell" + x + y);
-            if(isOnline == 0){ cell.setAttribute("onclick", "selectPiece(" + x + "," + y + ");"); }
-            else if(isOnline == 1){ cell.setAttribute("onclick", "selectPieceOnline(" + x + "," + y + ");"); }
+            cell.setAttribute("onclick", "selectPiece(" + x + "," + y + ");");
             cell.appendChild(piece);
             row.appendChild(cell);
         }
@@ -139,7 +139,6 @@ function selectPiece(x, y) {
         botTurn();
     }
 }
-
 
 //verificamos a validade das direções, 0 se a dreção não for válida, 1 ou mais para o número de peças que podem ser alteradas
 function validPiece(x, y) {
