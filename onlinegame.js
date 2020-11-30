@@ -34,7 +34,6 @@ function register(){
  })
 }
 
-
 function notify(){
 
   fetch(url + "notify",{
@@ -51,13 +50,12 @@ function notify(){
     }
     else{
       console.log(response);
-      alert("Wrong password");
+      alert("Notify error");
     }
     
     update();
   })
 }
-
 
 function join(){
   
@@ -78,19 +76,49 @@ function join(){
     
     else{
       console.log(response);
-      alert("Wrong password");
+      alert("Couldn't join");
     }
   }).then( json =>{
     
     game = json.game;
     color = json.color;
-    setOnline(color);
-    
+  
     update();
   })
+}
+
+function leave(){
+  
+  fetch(url + "leave",{
+    method: "POST",
+    body: JSON.stringify({
+      "nick": nick,
+      "pass": pass,
+      "game": game
+    })
+  }).then(response => {
+    if(response.ok){
+      console.log(response);
+    }
+    else{
+      console.log(response);
+      alert("Failed to leave");
+    }
 }
 
 function update(){
 
   console.log("update");
 }
+
+var board = [
+  ["empty","empty","empty","empty","empty","empty","empty","empty"],
+  ["empty","empty","empty","empty","empty","empty","empty","empty"],
+  ["empty","empty","empty","empty","empty","empty","empty","empty"],
+  ["empty","empty","empty","light","dark" ,"empty","empty","empty"],
+  ["empty","empty","empty","dark", "light","empty","empty","empty"],
+  ["empty","empty","empty","empty","empty","empty","empty","empty"],
+  ["empty","empty","empty","empty","empty","empty","empty","empty"],
+  ["empty","empty","empty","empty","empty","empty","empty","empty"]     
+];
+
