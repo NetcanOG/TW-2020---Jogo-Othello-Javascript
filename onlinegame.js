@@ -104,7 +104,9 @@ function leave(){
       console.log(response);
       alert("Failed to leave");
     }
+  })
 }
+
 
 function update(){
 
