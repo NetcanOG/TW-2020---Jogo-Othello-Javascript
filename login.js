@@ -39,6 +39,14 @@ function closeresultado() {
     document.getElementById("popvitorias").style.display = "none";
 }
 
+/*Ranking */
+function showranking(){
+    document.getElementById("popranking").style.display = "block";
+}
+function closeranking(){
+    document.getElementById("popranking").style.display = "none";
+}
+
 /*Ganhou */
 function showpopganhou(player) {
     document.getElementById("popturn").style.display = "none";

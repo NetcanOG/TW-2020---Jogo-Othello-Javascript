@@ -507,12 +507,19 @@
         width: 100%;
     }
     
-    table th {
+    table thead th {
         color: #007D15;
         width: 40%;
         padding: 5%;
     }
-    
+    table .h2 {
+        color: #007D15;
+        padding-bottom: 2%;
+        width: 180px;
+    }
+    #popranking h1{
+        padding-top: 10px;
+    }
     .close {
         color: #aaaaaa;
         float: right;

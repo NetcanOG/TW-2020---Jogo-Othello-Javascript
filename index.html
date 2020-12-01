@@ -16,8 +16,8 @@
 <body>
     <!--Footer com informações sore o jogo-->
     <div class="footer">
-        <h3 class="esq">Othello 1.0 - Tecnologias Web</h3>
-        <h3>October 2020</h3>
+        <h3 class="esq">Othello 2.0 - Tecnologias Web</h3>
+        <h3>December 2020</h3>
         <h3 class="dir">Miguel Ramos & Patrícia Vieira</h3>
     </div>
 
@@ -56,7 +56,7 @@
                             </div>
                             <div class="div">
                                 <h5>User Name</h5>
-                                <input type="text" class="input" id="username">
+                                <input type="text" class="input" id="username" required>
                             </div>
                         </div>
                         <div class="input-div one">
@@ -65,7 +65,7 @@
                             </div>
                             <div class="div">
                                 <h5>Password</h5>
-                                <input type="password" class="input" id="password">
+                                <input type="password" class="input" id="password" required>
                             </div>
                         </div>
                         <button type="button" class="btn blogin" onclick="register()">Log in</button>
@@ -160,7 +160,7 @@
         </div>
     </div>
 
-
+ 
     <!--Jogo/Tabuleiro-->
     <div class="layoutrow" id="game">
         <!--Coluna da Esquerda - Regras e Vitorias-->
@@ -171,6 +171,9 @@
                 </div>
                 <div>
                     <button type="button" class="btn blogin" onclick="showresultado()"><i class="fas fa-trophy"></i> Results</button>
+                </div>
+                <div>
+                    <button type="button" class="btn blogin" onclick="ranking()"><i class="fas fa-medal"></i> Ranking </button>
                 </div>
             </div>
         </div>
@@ -305,6 +308,33 @@
                 </table>
             </div>
 
+        </div>
+    </div>
+    <!--POP Ranking-->
+    <div id="popranking" class="modal centrar">
+        <div class="modal-regras">
+            <span class="close" onclick="closeranking()">&times;</span>
+            <div id="pontjogo" class="centrar">
+                <h1>Ranking Top10</h1>
+                <table>
+                    <thead>
+                    </thead>
+                    <tbody id="tabela">
+                        <tr>
+                            <th class="h2">
+                                Player
+                            </th>
+                            <th class="h2">
+                                Victories
+                            </th>
+                            <th class="h2">
+                                Games
+                            </th>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
