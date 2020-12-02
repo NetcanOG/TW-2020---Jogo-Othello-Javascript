@@ -11,6 +11,7 @@ var blackScore = 0; //Número de peças pretas
 var whiteScore = 0; //Número de peças brancas
 var passTimes = 0; //variável para guardar quantas vezes a jogada foi passada num turno (em caso de 2, é Game Over)
 var N, NE, E, SE, S, SW, W, NW; //cardinais e intercardinais, usadas para verificar se as direções são válidas nas colocações das peças
+var isOnline = 0;
 
 var grid = [
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -51,6 +52,7 @@ function createGrid() {
 
             cell.setAttribute("id", "cell" + x + y);
             cell.setAttribute("onclick", "selectPiece(" + x + "," + y + ");");
+            
             cell.appendChild(piece);
             row.appendChild(cell);
         }
@@ -77,8 +79,15 @@ function refreshBoard() {
     }
 }
 
+
 //Adiciona uma peça, depois de verificar que é uma posição válida
 function selectPiece(x, y) {
+
+    if(isOnline == 1){
+      selectOnlinePiece(x,y);
+      return 0;
+    }
+
     document.getElementById("popturn").style.display = "none";
     passTimes = 0;
     var played = 0;

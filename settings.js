@@ -1,7 +1,8 @@
 "use strict";
 
 function showbegin() {
-    location.reload();
+  leave();
+  location.reload();
 }
 
 function showlogin() {
