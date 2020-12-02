@@ -161,10 +161,17 @@ function update(){
     translateBoard();
     refreshBoard();
     getPieceScore();
-    /*
+    
     if(data.turn == nick){
-      document.getElementById("Turn").innerHTML = "White Turn";
-    }*/
+        document.getElementById("Turn").innerHTML = "Your Turn";
+    }else{
+      if(color == "dark"){
+        document.getElementById("Turn").innerHTML = "White Turn";
+      }
+      else{
+        document.getElementById("Turn").innerHTML = "Black Turn";
+      }
+    }
   }
   Sevent.onerror = erro => console.error(erro);
   console.log("update");
