@@ -9,6 +9,7 @@ var move;
 var color;
 var Sevent;
 var data;
+var moves;
 
 function register(){
 
@@ -37,6 +38,12 @@ function register(){
 }
 
 function notify(x,y){
+  if(x == null && y == null){
+    moves = null;
+  }
+  else{
+    moves = {"row": x, "column": y}
+  }
 
   fetch(url + "notify",{
     method: "POST",
@@ -44,7 +51,7 @@ function notify(x,y){
       "nick": nick,
       "pass": pass,
       "game": game,
-      "move": {"row": x, "column": y}
+      "move": moves
     })
   }).then(response => {
     if(response.ok){
@@ -52,7 +59,7 @@ function notify(x,y){
     }
     else{
       console.log(response);
-      alert("Not your turn to play");
+      console.log(nick+" passes")
     }
     
     update();
@@ -73,7 +80,6 @@ function join(){
       console.log(response);
       showgame(1);
       isOnline = 1;
-      console.log("isOnline ="+isOnline);
       return response.json();
     }
     
@@ -150,17 +156,20 @@ function ranking(){
 function update(){
 
   Sevent.onmessage = async event => {
-    if(Sevent.winner){
-      //vencedorfunçao
-      Sevent.close();
-    }
     data = await JSON.parse(event.data);
-    //await notify();
-    //atualizar board
-    console.log("onmessage");
+    
+    if(data.winner != null){
+      alert(data.winner +" wins!");
+    }
+
     translateBoard();
     refreshBoard();
     getPieceScore();
+
+    if(data.skip == true){
+      console.log("passando");
+      notify(null,null);
+    }
     
     if(data.turn == nick){
         document.getElementById("Turn").innerHTML = "Your Turn";
@@ -172,9 +181,10 @@ function update(){
         document.getElementById("Turn").innerHTML = "Black Turn";
       }
     }
+
+    console.log(data);
   }
   Sevent.onerror = erro => console.error(erro);
-  console.log("update");
 }
 
 
