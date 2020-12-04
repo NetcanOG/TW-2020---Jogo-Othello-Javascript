@@ -45,3 +45,14 @@ function showgame(color) {
     }
     createGrid();
 }
+
+function showOpOnnline(){
+    document.getElementById("desistionline").style.display = "none";
+    document.getElementById("popdesistiuonline").style.display = "none";
+    document.getElementById("popganhouonline").style.display = "none";
+    document.getElementById("desistir").style.display = "none";
+    document.getElementById("popdesistiu").style.display = "none";
+    document.getElementById("popganhou").style.display = "none";
+    document.getElementById("desistionline").style.display = "block";
+
+}

@@ -47,7 +47,7 @@ function closeranking(){
     document.getElementById("popranking").style.display = "none";
 }
 
-/*Ganhou */
+/*Ganhou 1 VS PC*/
 function showpopganhou(player) {
     document.getElementById("popturn").style.display = "none";
     switch (player) {
@@ -57,7 +57,7 @@ function showpopganhou(player) {
             break;
         case 2:
             document.getElementById("popdesistiu").style.display = "block";
-            document.getElementById("legenda1").innerHTML = "White forfeits, Black Won!";
+            document.getElementById("legenda1").innerHTML = "White forfeits, Black Won!"; 
             break;
         case 3:
             document.getElementById("popganhou").style.display = "block";

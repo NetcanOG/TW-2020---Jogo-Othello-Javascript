@@ -78,7 +78,7 @@ function join(){
     
     if(response.ok){
       console.log(response);
-      showgame(1);
+      //showgame(1);
       isOnline = 1;
       return response.json();
     }
@@ -159,7 +159,9 @@ function update(){
     data = await JSON.parse(event.data);
     
     if(data.winner != null){
-      alert(data.winner +" wins!");
+      console.log(data.winner +" wins!");
+      showpopganhouonline(data.winner, 3);
+      leave();
     }
 
     translateBoard();
