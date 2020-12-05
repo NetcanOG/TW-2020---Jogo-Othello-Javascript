@@ -10,6 +10,7 @@ var color;
 var Sevent;
 var data;
 var moves;
+var quit=0;
 
 function register(){
  nick = document.getElementById("username").value;
@@ -90,7 +91,6 @@ async function join(){
       "pass": pass
     })
   }).then(response => {
-    
     if(response.ok){
       console.log(response);
       //showgame(1);
@@ -108,6 +108,7 @@ async function join(){
     color = json.color;
 
     Sevent = new EventSource(url+"update?nick="+nick+"&game="+game); 
+    quit=0;
     update();
     showOpOnnline();
   })
@@ -121,6 +122,10 @@ function update(){
     refreshBoard();
     getPieceScore();
 
+    if(quit==1){
+      showpopganhouonline(data.winner, 1);
+      console.log("ola");
+    }
     if(data.winner != null){
       //alert(data.winner +" wins!");
       showpopganhouonline(data.winner, 3); //Mensagem vencedor
@@ -131,7 +136,7 @@ function update(){
 
       }
     }
-
+    
     if(data.skip == true){
       console.log("passando");
       notify(null,null);
@@ -203,6 +208,11 @@ function selectOnlinePiece(x,y){
     notify(x,y);
     update();
   }
+}
+function giveup(){
+  quit=1;
+  console.log("entrei");
+  showpopganhouonline(data.winner, 1);
 }
 
 function ranking(){

@@ -1,7 +1,7 @@
 "use strict";
 
 function showbegin() {
-  leave();
+  leave(); 
   location.reload();
 }
 
@@ -47,12 +47,10 @@ function showgame(color) {
 }
 
 function showOpOnnline(){
-    document.getElementById("popdesistiuonline").style.display = "none";
     document.getElementById("popganhouonline").style.display = "none";
     document.getElementById("desistir").style.display = "none";
     document.getElementById("popdesistiu").style.display = "none";
     document.getElementById("popganhou").style.display = "none";
+    document.getElementById("result").style.display = "none";
     
-    document.getElementById("desistionline").style.display = "block";
-
 }
