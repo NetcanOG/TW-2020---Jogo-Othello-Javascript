@@ -34,7 +34,6 @@ function register(){
    }
  })
 }
-
 function leave(){
   fetch(url + "leave",{
     method: "POST",
@@ -46,15 +45,17 @@ function leave(){
   }).then(response => {
     if(response.ok){
       console.log(response);
+      EventSource.close();
     }else{
       console.log(response);
-      alert("Failed to leave");
+      console.log("Failed to leave");
     }
   })
 }
 
 
 function notify(x,y){
+  passplay(3);  
   if(x == null && y == null){
     moves = null;
   }else{
@@ -75,6 +76,11 @@ function notify(x,y){
     }else{
       console.log(response);
       console.log(nick+" passes")
+      if(data.turn == nick){
+        passplay(1);
+      }else{
+        passplay(2);
+      }
     }
     update();
   })
@@ -94,6 +100,7 @@ function join(){
       console.log(response);
       //showgame(1);
       isOnline = 1;
+      showOpOnnline();
       return response.json();
     }
     
@@ -118,14 +125,17 @@ function update(){
     translateBoard();
     refreshBoard();
     getPieceScore();
-    
+
     if(data.winner != null){
-      alert(data.winner +" wins!");
+      //alert(data.winner +" wins!");
       showpopganhouonline(data.winner, 3); //Mensagem vencedor
       leave();
-    }
+    }else{
+      if(data.dark==32 && data.light==32){
+        showpopganhouonline(data.winner, 5); //Mensagem vencedor
 
-    
+      }
+    }
 
     if(data.skip == true){
       console.log("passando");
@@ -133,11 +143,12 @@ function update(){
     }
     
     if(data.turn == nick){
-      if(color == "dark"){
+      document.getElementById("Turn").innerHTML = "Your Turn ";   
+      /*if(color == "dark"){
         document.getElementById("Turn").innerHTML = "Your Turn (Black)";       
       }else{
         document.getElementById("Turn").innerHTML = "Your Turn (White)";        
-      }
+      }*/
     }else{
       if(color == "dark"){
         document.getElementById("Turn").innerHTML = "White Turn";

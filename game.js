@@ -320,15 +320,18 @@ function showpopganhouonline(player,n) {
     document.getElementById("popturnonline").style.display = "none";
     document.getElementById("desistionline").style.display = "none";
     switch (n) {
-        /*case 1:
+        case 1:
             document.getElementById("popdesistiuonline").style.display = "block";
             document.getElementById("lo1").innerHTML = "Black forfeits, White Won!";
+            playerTwoScore++;
+            document.getElementById("vitoriasbranco").innerHTML = playerTwoScore;
             break;
         case 2:
             document.getElementById("popdesistiuonline").style.display = "block";
-            document.getElementById("lo1").innerHTML = "White forfeits, Black Won!"; 
+            document.getElementById("lo1").innerHTML = "White forfeits, Black Won!";
+            playerOneScore++;
+            document.getElementById("vitoriaspreto").innerHTML = playerOneScore; 
             break;
-        */
         case 3:
             document.getElementById("popganhouonline").style.display = "block"; //Mensagem
             
@@ -340,17 +343,28 @@ function showpopganhouonline(player,n) {
                 showpopganhouonline(player,4) //Mensagem de vitoria
                 playerTwoScore++;
                 document.getElementById("vitoriasbranco").innerHTML = playerTwoScore;
-            } /*else if (whiteScore == blackScore) {
-                showpopganhouonline(5); //Mensagem de empate
-            }*/
+            }
             break;
         case 4: document.getElementById("lo2").innerHTML = "Game over, "+player+" Won!";
             break;
-        /*case 5:
+        case 5:
             document.getElementById("lo2").innerHTML = "End of the game, it's a tie!!";
-            break;*/
-    }
+            break;
+        }
     document.getElementById("popdesistiuonline").style.display = "none";
+}
+
+function passplay(n){
+    switch(n){
+        case 1: document.getElementById("popturn").style.display = "block";
+                document.getElementById("legenda2").innerHTML = "Passed your turn to your opponent";
+                break;
+        case 2: document.getElementById("popturn").style.display = "block";
+                document.getElementById("legenda2").innerHTML = "It's your turn your opponent passed the turn";
+                break;   
+        case 3: document.getElementById("popturn").style.display = "none";
+            break;
+    }
 }
 /*----------------------------------- AI ------------------------------------ */
 
