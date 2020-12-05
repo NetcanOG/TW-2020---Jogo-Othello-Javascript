@@ -132,7 +132,9 @@ function update(){
       showpopganhouonline(data.winner, 3); //Mensagem vencedor
       leave();
     }else{
+      if(data.winner == "null"){
         showpopganhouonline(data.winner, 5); //Mensagem Empate
+      }
     }
     
     if(data.skip == true){
