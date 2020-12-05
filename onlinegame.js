@@ -76,11 +76,6 @@ function notify(x,y){
     }else{
       console.log(response);
       console.log(nick+" passes")
-      if(data.turn == nick){
-        passplay(1);
-      }else{
-        passplay(2);
-      }
     }
     update();
   })
@@ -140,6 +135,11 @@ function update(){
     if(data.skip == true){
       console.log("passando");
       notify(null,null);
+      if(data.turn == nick){
+        passplay(1);
+      }else{
+        passplay(2);
+      }
     }
     
     if(data.turn == nick){
