@@ -323,8 +323,9 @@ function endGame(forfeitFlag) {
 /*Ganhou 1 VS 1*/
 function showpopganhouonline(player,n) {
     document.getElementById("popturnonline").style.display = "none";
+    document.getElementById("desistionline").style.display = "none";
     switch (n) {
-        case 1:
+        /*case 1:
             document.getElementById("popdesistiuonline").style.display = "block";
             document.getElementById("lo1").innerHTML = "Black forfeits, White Won!";
             break;
@@ -332,9 +333,8 @@ function showpopganhouonline(player,n) {
             document.getElementById("popdesistiuonline").style.display = "block";
             document.getElementById("lo1").innerHTML = "White forfeits, Black Won!"; 
             break;
-
+        */
         case 3:
-            document.getElementById("desistionline").style.display = "none"; //Botao desistir
             document.getElementById("popganhouonline").style.display = "block"; //Mensagem
             
             if (blackScore > whiteScore) {

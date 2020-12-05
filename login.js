@@ -73,7 +73,7 @@ function showpopganhou(player) {
             break;
     }
     document.getElementById("desistir").style.display = "none";
-}
+} 
 
 window.onclick = function(event) {
     if (event.target == document.getElementById("popregras")) {
