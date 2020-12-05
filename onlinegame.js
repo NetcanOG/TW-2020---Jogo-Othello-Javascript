@@ -134,6 +134,7 @@ function update(){
     }else{
       if(data.winner == "null"){
         showpopganhouonline(data.winner, 5); //Mensagem Empate
+        leave();
       }
     }
     
@@ -210,9 +211,13 @@ function selectOnlinePiece(x,y){
   }
 }
 function giveup(){
-  quit=1;
-  console.log("entrei");
-  showpopganhouonline(data.winner, 1);
+  if(color == "dark"){
+    console.log("1");
+    showpopganhouonline(data.winner, 1);
+  }else{
+    showpopganhouonline(data.winner, 2);        
+  }
+  leave();
 }
 
 function ranking(){

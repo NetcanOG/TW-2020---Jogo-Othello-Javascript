@@ -327,20 +327,22 @@ function endGame(forfeitFlag) {
 /*Ganhou 1 VS 1*/
 function showpopganhouonline(player,n) {
     document.getElementById("popturnonline").style.display = "none";
-    switch (n) {
-        /*case 1:
+    document.getElementById("desistionline").style.display="none";
+    switch(n) {
+        case 1:
+            console.log("2");
             document.getElementById("popdesistiuonline").style.display = "block";
             document.getElementById("lo1").innerHTML = "Black forfeits, White Won!";
-            playerTwoScore++;
-            document.getElementById("vitoriasbranco").innerHTML = playerTwoScore;
+            //playerTwoScore++;
+            //document.getElementById("vitoriasbranco").innerHTML = playerTwoScore;
             break;
         case 2:
             document.getElementById("popdesistiuonline").style.display = "block";
             document.getElementById("lo1").innerHTML = "White forfeits, Black Won!";
-            playerOneScore++;
-            document.getElementById("vitoriaspreto").innerHTML = playerOneScore; 
+            //playerOneScore++;
+            //document.getElementById("vitoriaspreto").innerHTML = playerOneScore; 
             break;
-            */
+            
         case 3:
             document.getElementById("popganhouonline").style.display = "block"; //Mensagem
             
@@ -348,11 +350,15 @@ function showpopganhouonline(player,n) {
                 showpopganhouonline(player,4) //Mensagem de vitoria
                 playerOneScore++;
                 document.getElementById("vitoriaspreto").innerHTML = playerOneScore;
-            } else if (whiteScore > blackScore) {
-                showpopganhouonline(player,4) //Mensagem de vitoria
-                playerTwoScore++;
-                document.getElementById("vitoriasbranco").innerHTML = playerTwoScore;
-            }
+            } else{
+                if (whiteScore > blackScore) {
+                    showpopganhouonline(player,4) //Mensagem de vitoria
+                    playerTwoScore++;
+                    document.getElementById("vitoriasbranco").innerHTML = playerTwoScore;
+                }else{
+                    document.getElementById("lo2").innerHTML = "Your opponent gave up!";
+                }
+            } 
             break;
         case 4: document.getElementById("lo2").innerHTML = "Game over, "+player+" Won!";
             break;
