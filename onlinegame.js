@@ -106,7 +106,7 @@ function join(){
     
     else{
       console.log(response);
-      alert("Couldn't join");
+      console.log("Couldn't join");
     }
   }).then( json =>{
     game = json.game;

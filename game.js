@@ -264,6 +264,11 @@ function resetGame() {
     document.getElementById("popganhou").style.display = "none";
     document.getElementById("desistir").style.display = "block";
 
+    if(isOnline == 1){
+        leave();
+        join();
+    }
+
     grid = [
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
