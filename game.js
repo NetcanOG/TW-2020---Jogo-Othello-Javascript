@@ -357,7 +357,8 @@ function showpopganhouonline(player,n) {
         case 4: document.getElementById("lo2").innerHTML = "Game over, "+player+" Won!";
             break;
         case 5:
-            document.getElementById("lo2").innerHTML = "End of the game, it's a tie!!";
+            document.getElementById("popganhouonline").style.display = "block"; //Mensagem
+            document.getElementById("lo2").innerHTML = "End of the game, it's a tie!";
             break;
         }
 }

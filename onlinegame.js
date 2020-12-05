@@ -132,10 +132,7 @@ function update(){
       showpopganhouonline(data.winner, 3); //Mensagem vencedor
       leave();
     }else{
-      if(data.dark==32 && data.light==32){
-        showpopganhouonline(data.winner, 5); //Mensagem vencedor
-
-      }
+        showpopganhouonline(data.winner, 5); //Mensagem Empate
     }
     
     if(data.skip == true){

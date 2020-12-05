@@ -69,7 +69,7 @@ function showpopganhou(player) {
             break;
         case 5:
             document.getElementById("popganhou").style.display = "block";
-            document.getElementById("legenda").innerHTML = "End of the game, it's a tie!!";
+            document.getElementById("legenda").innerHTML = "End of the game, it's a tie!";
             break;
     }
     document.getElementById("desistir").style.display = "none";
