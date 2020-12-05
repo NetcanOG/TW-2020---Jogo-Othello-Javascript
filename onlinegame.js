@@ -45,7 +45,7 @@ function leave(){
   }).then(response => {
     if(response.ok){
       console.log(response);
-      EventSource.close();
+      Sevent.close();
     }else{
       console.log(response);
       console.log("Failed to leave");
@@ -86,7 +86,7 @@ function notify(x,y){
   })
 }
 
-function join(){
+async function join(){
   fetch(url + "join",{
     method: "POST",
     body: JSON.stringify({

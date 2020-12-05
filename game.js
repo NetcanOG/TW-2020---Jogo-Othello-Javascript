@@ -317,6 +317,10 @@ function endGame(forfeitFlag) {
             document.getElementById("vitoriaspreto").innerHTML = playerOneScore;
         }
     }
+
+    if(isOnline == 1){
+      resetGame();
+    }
 }
 
 
