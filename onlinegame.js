@@ -85,7 +85,7 @@ function join(){
     
     else{
       console.log(response);
-      alert("Couldn't join");
+      console.log("Couldn't join");
     }
   }).then( json =>{
     game = json.game;
@@ -108,10 +108,11 @@ function leave(){
   }).then(response => {
     if(response.ok){
       console.log(response);
+      EventSource.closey();
     }
     else{
       console.log(response);
-      alert("Failed to leave");
+      console.log("Failed to leave");
     }
   })
 }
