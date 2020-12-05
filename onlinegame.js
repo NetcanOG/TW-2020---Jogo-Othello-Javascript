@@ -126,6 +126,7 @@ function update(){
       showpopganhouonline(data.winner, 1);
       console.log("ola");
     }
+    passplay(3);
     if(data.winner != null){
       //alert(data.winner +" wins!");
       showpopganhouonline(data.winner, 3); //Mensagem vencedor
