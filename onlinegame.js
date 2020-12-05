@@ -87,7 +87,7 @@ function notify(x,y){
 }
 
 async function join(){
-  fetch(url + "join",{
+  await fetch(url + "join",{
     method: "POST",
     body: JSON.stringify({
       "group": group,
