@@ -12,7 +12,7 @@ var data;
 var moves;
 var quit=0;
 
-var tabelarank;
+var table, linha;
 
 function register(){
  nick = document.getElementById("username").value;
@@ -138,7 +138,7 @@ function update(){
     }
     
     if(data.skip == true){
-      console.log("passando");
+      //console.log("passando");
       notify(null,null);
       if(data.turn == nick){
         passplay(1);
@@ -148,7 +148,6 @@ function update(){
     }
     
     if(data.turn == nick){
-      console.log("UPDATE: "+ color);
       document.getElementById("Turn").innerHTML = "Your Turn ";   
       /*if(color == "dark"){
         document.getElementById("Turn").innerHTML = "Your Turn (Black)";       
@@ -212,8 +211,6 @@ function selectOnlinePiece(x,y){
 }
 function giveup(){
   quit=1;
-  console.log("GIVEUP: turno: "+ data.turn +"," + nick+ " cor: "+ color);
-
   if(data.turn == nick){
     if(color == "dark"){
       showpopganhouonline(data.winner, 1, color);
@@ -238,9 +235,33 @@ function ranking(){
   }).then(async response =>{
     data = await response.json(); 
     console.log(data);
-    tabelarank = document.getElementById("tabela");
+    table = document.getElementById("tabela");
+
+    console.log(data);
+    table = document.getElementById("tabela");
+
+    while(table.firstChild){
+      table.removeChild(table.firstChild);
+    }
+    linha = document.createElement("tr");
+    var c1 = document.createElement("th");
+    var c2 = document.createElement("th");
+    var c3 = document.createElement("th");
+
+    c1.innerHTML="Player";
+    c2.innerHTML="Victories";
+    c3.innerHTML="Games"
+
+    c1.className = "h2";
+    c2.className = "h2";
+    c3.className = "h2";
+    linha.appendChild(c1);
+    linha.appendChild(c2);
+    linha.appendChild(c3);
+    table.appendChild(linha);
+
     for (var y = 0; y < 10; y++) {
-      var linha;
+
       linha = document.createElement("tr");
       for (var x = 0; x < 3; x++) {
             var campo = document.createElement("th");
@@ -257,36 +278,7 @@ function ranking(){
             campo.appendChild(text);
             linha.appendChild(campo);
       }
-      tabelarank.appendChild(linha);
+      table.appendChild(linha);
   }
   })
-}
-function rankingapa(){
-  tabelarank.parentNode.removeChild(tabelarank);
-  
-  var tabelarank = document.createElement("div");
-   tabelarank.setAttribute("id", "tabela");
-  var linha = document.createElement("tr");
-  var campo = document.createElement("th");
-  campo.className = "h2";
-  var text = document.createElement("h3");
-  text.innerHTML= "Player";
-  campo.appendChild(text);
-  linha.appendChild(campo);
-
-  campo = document.createElement("th");
-  campo.className = "h2";
-   text = document.createElement("h3");
-  text.innerHTML= "Victories";
-  campo.appendChild(text);
-  linha.appendChild(campo);
-
-  campo = document.createElement("th");
-  campo.className = "h2";
-  text = document.createElement("h3");
-  text.innerHTML= "Games";
-  campo.appendChild(text);
-  linha.appendChild(campo);
-
-  tabelarank.appendChild(linha);
 }
