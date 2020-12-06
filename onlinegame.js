@@ -10,7 +10,8 @@ var color;
 var Sevent;
 var data;
 var moves;
-var quit=0;
+var quit = 0;
+var playedOnce = 0;
 
 var table, linha;
 
@@ -54,6 +55,7 @@ function leave(){
       console.log("Failed to leave");
     }
   })
+  playedOnce = 0;
 }
 
 
@@ -120,7 +122,21 @@ function update(){
   Sevent.onmessage = async event => {
     data = await JSON.parse(event.data);
     
-    translateBoard();
+    if(playedOnce == 0){
+      grid = [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 2, 1, 0, 0, 0],
+        [0, 0, 0, 1, 2, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0]
+    ];
+    } else{
+      translateBoard();
+    }
+    playedOnce++;
     refreshBoard();
     getPieceScore();
 
@@ -164,7 +180,10 @@ function update(){
     }
     console.log(data);
   }
-  Sevent.onerror = erro => console.error(erro);
+  Sevent.onerror = erro =>{
+   console.error(erro);
+   playedOnce = 0;
+  }
 }
 
 
