@@ -322,8 +322,8 @@ function endGame(forfeitFlag) {
             vitP++;
         }
     }
-    localStorage.setItem('Preto', vitP);
-    localStorage.setItem('Branco', vitB);
+    localStorage.setItem('Black', vitP);
+    localStorage.setItem('White', vitB);
 
     if(isOnline == 1){
       resetGame();
