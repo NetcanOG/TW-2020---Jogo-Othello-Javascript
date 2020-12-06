@@ -12,6 +12,7 @@ var whiteScore = 0; //Número de peças brancas
 var passTimes = 0; //variável para guardar quantas vezes a jogada foi passada num turno (em caso de 2, é Game Over)
 var N, NE, E, SE, S, SW, W, NW; //cardinais e intercardinais, usadas para verificar se as direções são válidas nas colocações das peças
 var isOnline = 0;
+var vitP=0, vitB=0;
 
 var grid = [
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -299,10 +300,12 @@ function endGame(forfeitFlag) {
             showpopganhou(3);
             playerOneScore++;
             document.getElementById("vitoriaspreto").innerHTML = playerOneScore;
+            vitP++;
         } else if (whiteScore > blackScore) {
             showpopganhou(4);
             playerTwoScore++;
             document.getElementById("vitoriasbranco").innerHTML = playerTwoScore;
+            vitB++;
         } else if (whiteScore == blackScore) {
             showpopganhou(5);
         }
@@ -311,12 +314,16 @@ function endGame(forfeitFlag) {
             showpopganhou(1);
             playerTwoScore++;
             document.getElementById("vitoriasbranco").innerHTML = playerTwoScore;
+            vitB++;
         } else if (player == 2) {
             showpopganhou(2);
             playerOneScore++;
             document.getElementById("vitoriaspreto").innerHTML = playerOneScore;
+            vitP++;
         }
     }
+    localStorage.setItem('Preto', vitP);
+    localStorage.setItem('Branco', vitB);
 
     if(isOnline == 1){
       resetGame();
