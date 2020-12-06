@@ -12,6 +12,8 @@ var data;
 var moves;
 var quit=0;
 
+var tabelarank;
+
 function register(){
  nick = document.getElementById("username").value;
  pass = document.getElementById("password").value;
@@ -122,19 +124,16 @@ function update(){
     refreshBoard();
     getPieceScore();
 
-    if(quit==1){
-      showpopganhouonline(data.winner, 1);
-      console.log("ola");
-    }
     passplay(3);
-    if(data.winner != null){
-      //alert(data.winner +" wins!");
-      showpopganhouonline(data.winner, 3); //Mensagem vencedor
-      leave();
-    }else{
-      if(data.winner == "null"){
-        showpopganhouonline(data.winner, 5); //Mensagem Empate
+    if(quit!=1){
+      if(data.winner != null){
+        showpopganhouonline(data.winner, 3,color); //Mensagem vencedor
         leave();
+      }else{
+        if(data.winner == "null"){
+          showpopganhouonline(data.winner, 5,color); //Mensagem Empate
+          leave();
+        }
       }
     }
     
@@ -149,6 +148,7 @@ function update(){
     }
     
     if(data.turn == nick){
+      console.log("UPDATE: "+ color);
       document.getElementById("Turn").innerHTML = "Your Turn ";   
       /*if(color == "dark"){
         document.getElementById("Turn").innerHTML = "Your Turn (Black)";       
@@ -211,11 +211,21 @@ function selectOnlinePiece(x,y){
   }
 }
 function giveup(){
-  if(color == "dark"){
-    console.log("1");
-    showpopganhouonline(data.winner, 1);
+  quit=1;
+  console.log("GIVEUP: turno: "+ data.turn +"," + nick+ " cor: "+ color);
+
+  if(data.turn == nick){
+    if(color == "dark"){
+      showpopganhouonline(data.winner, 1, color);
+    }else{
+      showpopganhouonline(data.winner, 2, color);        
+    }
   }else{
-    showpopganhouonline(data.winner, 2);        
+    if(color == "dark"){
+      showpopganhouonline(data.winner, 1, color);
+    }else{
+      showpopganhouonline(data.winner, 2, color);        
+    }
   }
   leave();
 }
@@ -228,11 +238,10 @@ function ranking(){
   }).then(async response =>{
     data = await response.json(); 
     console.log(data);
-    const tabelarank = document.getElementById("tabela");
+    tabelarank = document.getElementById("tabela");
     for (var y = 0; y < 10; y++) {
       var linha;
       linha = document.createElement("tr");
-
       for (var x = 0; x < 3; x++) {
             var campo = document.createElement("th");
             var text = document.createElement("h3");
@@ -251,4 +260,33 @@ function ranking(){
       tabelarank.appendChild(linha);
   }
   })
+}
+function rankingapa(){
+  tabelarank.parentNode.removeChild(tabelarank);
+  
+  var tabelarank = document.createElement("div");
+   tabelarank.setAttribute("id", "tabela");
+  var linha = document.createElement("tr");
+  var campo = document.createElement("th");
+  campo.className = "h2";
+  var text = document.createElement("h3");
+  text.innerHTML= "Player";
+  campo.appendChild(text);
+  linha.appendChild(campo);
+
+  campo = document.createElement("th");
+  campo.className = "h2";
+   text = document.createElement("h3");
+  text.innerHTML= "Victories";
+  campo.appendChild(text);
+  linha.appendChild(campo);
+
+  campo = document.createElement("th");
+  campo.className = "h2";
+  text = document.createElement("h3");
+  text.innerHTML= "Games";
+  campo.appendChild(text);
+  linha.appendChild(campo);
+
+  tabelarank.appendChild(linha);
 }

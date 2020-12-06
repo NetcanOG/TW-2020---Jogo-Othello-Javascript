@@ -325,41 +325,49 @@ function endGame(forfeitFlag) {
 
 
 /*Ganhou 1 VS 1*/
-function showpopganhouonline(player,n) {
+function showpopganhouonline(player,n, color) {
     document.getElementById("popturnonline").style.display = "none";
     document.getElementById("desistionline").style.display="none";
     switch(n) {
         case 1:
-            console.log("2");
             document.getElementById("popdesistiuonline").style.display = "block";
             document.getElementById("lo1").innerHTML = "Black forfeits, White Won!";
-            //playerTwoScore++;
-            //document.getElementById("vitoriasbranco").innerHTML = playerTwoScore;
+            playerTwoScore++;
+                    document.getElementById("vitoriasbranco").innerHTML = playerTwoScore;
             break;
         case 2:
             document.getElementById("popdesistiuonline").style.display = "block";
             document.getElementById("lo1").innerHTML = "White forfeits, Black Won!";
-            //playerOneScore++;
-            //document.getElementById("vitoriaspreto").innerHTML = playerOneScore; 
+            playerOneScore++;
+            document.getElementById("vitoriaspreto").innerHTML = playerOneScore;
             break;
             
         case 3:
             document.getElementById("popganhouonline").style.display = "block"; //Mensagem
             
             if (blackScore > whiteScore) {
-                showpopganhouonline(player,4) //Mensagem de vitoria
+                showpopganhouonline(player,4 , color) //Mensagem de vitoria
                 playerOneScore++;
                 document.getElementById("vitoriaspreto").innerHTML = playerOneScore;
             } else{
                 if (whiteScore > blackScore) {
-                    showpopganhouonline(player,4) //Mensagem de vitoria
+                    showpopganhouonline(player,4, color) //Mensagem de vitoria
                     playerTwoScore++;
                     document.getElementById("vitoriasbranco").innerHTML = playerTwoScore;
-                }else{
-                    document.getElementById("lo2").innerHTML = "Your opponent gave up!";
+                }else{  //MESMO NUMERO DE PEÇAS
+                    if(color == "dark"){
+                        showpopganhouonline(player, 4,color);
+                        playerOneScore++;
+                        document.getElementById("vitoriaspreto").innerHTML = playerOneScore;
+                    }else{
+                        showpopganhouonline(player, 4, color);        
+                        playerTwoScore++;
+                        document.getElementById("vitoriasbranco").innerHTML = playerTwoScore;
+                    }
                 }
             } 
             break;
+
         case 4: document.getElementById("lo2").innerHTML = "Game over, "+player+" Won!";
             break;
         case 5:
