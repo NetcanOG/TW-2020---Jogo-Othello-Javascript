@@ -7,6 +7,10 @@ const heads = require('./heads.js');
 
 var port = 8105;
 
+const server = http.createServer(requestListener);
+server.listen(port, "0.0.0.0"); //localhost:8105
+
+
 //req = request
 //res = response
 const requestListener = function (req, res) {
@@ -18,7 +22,7 @@ const requestListener = function (req, res) {
       request
              .on('data', (chunk) => { body += chunk; })
              .on( 'end', () => {
-               try { query = JSON.parse(body); /*processar query*/ }
+               try { query = JSON.parse(body); postRequest(req, res, query.pathname, query); }
                catch(err){ /* erros de JSON*/ }
              })
              .on('error', (err) => { console.log(err.message); });
@@ -39,8 +43,3 @@ const requestListener = function (req, res) {
   res.end('Hello, World!');
   */
 }
-
-
-const server = http.createServer(requestListener);
-server.listen(port); //localhost:8105
-
