@@ -1,6 +1,7 @@
-methods.exports.postRequest = function(req, res, pathname, query){
-  switch(pathname){
-
+module.exports.postRequest = function(req, res, path, query){  
+  console.log("pathname: "+path);
+  switch(path){
+ 
     case('/ranking'):
     //nada ainda
     break;
@@ -12,6 +13,7 @@ methods.exports.postRequest = function(req, res, pathname, query){
 }
 
 function register(response, nick, pass){
+
   console.log("nickname: "+nick+"  password: "+pass);
-  console.log(response);
+  //console.log(response);
 }

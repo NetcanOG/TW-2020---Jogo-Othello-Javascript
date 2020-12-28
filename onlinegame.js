@@ -20,8 +20,8 @@ function register(){
  nick = document.getElementById("username").value;
  pass = document.getElementById("password").value;
 
- console.log("username = "+nick);
- console.log("password = "+pass);
+ //console.log("username = "+nick);
+ //console.log("password = "+pass);
 
  fetch(url + "register",{
    method: "POST",

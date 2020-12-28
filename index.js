@@ -7,10 +7,6 @@ const heads = require('./heads.js');
 
 var port = 8105;
 
-const server = http.createServer(requestListener);
-server.listen(port, "0.0.0.0"); //localhost:8105
-
-
 //req = request
 //res = response
 const requestListener = function (req, res) {
@@ -19,23 +15,25 @@ const requestListener = function (req, res) {
   let body = '';
   switch(req.method){
     case 'POST':
-      request
-             .on('data', (chunk) => { body += chunk; })
-             .on( 'end', () => {
-               try { query = JSON.parse(body); postRequest(req, res, query.pathname, query); }
-               catch(err){ /* erros de JSON*/ }
-             })
-             .on('error', (err) => { console.log(err.message); });
+      req
+         .on('data', (chunk) => { body += chunk; })
+         .on( 'end', () => {
+           try { query = JSON.parse(body); 
+            methods.postRequest(req, res, path, query);
+           }
+           catch(err){ /* erros de JSON*/ }
+          })
+         .on('error', (err) => { console.log(err.message); });
     break;
 
     case 'GET':
-      request
-             .on('data', (chunk) => { body += chunk; })
-             .on( 'end', () => {
-               try { query = JSON.parse(body); /*processar query*/ }
-               catch(err){ /* erros de JSON*/ }
-             })
-             .on('error', (err) => { console.log(err.message); });
+      req
+         .on('data', (chunk) => { body += chunk; })
+         .on( 'end', () => {
+           try { query = JSON.parse(body); /*processar query*/ }
+           catch(err){ /* erros de JSON*/ }
+         })
+         .on('error', (err) => { console.log(err.message); });
     break;
   }
   /*
@@ -43,3 +41,6 @@ const requestListener = function (req, res) {
   res.end('Hello, World!');
   */
 }
+
+const server = http.createServer(requestListener);
+server.listen(port, "0.0.0.0"); //localhost:8105
