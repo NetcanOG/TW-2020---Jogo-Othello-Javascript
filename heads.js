@@ -1,4 +1,4 @@
-const headers = {
+module.exports.heade = {
     plain: {
         'Content-Type': 'application/javascript',
         'Cache-Control': 'no-cache',

@@ -13,18 +13,21 @@ const requestListener = function (req, res) {
   var link = url.parse(req.url);
   var path = link.pathname;
   let body = '';
+
+  console.log(req.method);
+
   switch(req.method){
-    case 'POST':
+    case 'POST': 
       req
          .on('data', (chunk) => { body += chunk; })
          .on( 'end', () => {
            try { query = JSON.parse(body); 
-            methods.postRequest(req, res, path, query);
+            methods.postRequest(req, res, query);
            }
            catch(err){ /* erros de JSON*/ }
           })
          .on('error', (err) => { console.log(err.message); });
-    break;
+      break;
 
     case 'GET':
       req
@@ -36,11 +39,7 @@ const requestListener = function (req, res) {
          .on('error', (err) => { console.log(err.message); });
     break;
   }
-  /*
-  res.writeHead(200);
-  res.end('Hello, World!');
-  */
 }
 
 const server = http.createServer(requestListener);
-server.listen(port, "0.0.0.0"); //localhost:8105
+server.listen(port); //localhost:8105
