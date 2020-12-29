@@ -14,8 +14,6 @@ const requestListener = function (req, res) {
   var path = link.pathname;
   let body = '';
 
-  console.log(req.method);
-
   switch(req.method){
     case 'POST': 
       req

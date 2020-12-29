@@ -6,11 +6,13 @@ const fs = require('fs');
 
 module.exports.postRequest = function(req, res, query){  
   switch(req.url){
-    case('/ranking'): //nada ainda
-                      break;
+    case('/ranking'):
+    ranking(res);
+    break;
 
-    case("/register"):register(res, query.nick, query.pass);
-                      break;
+    case("/register"):
+    register(res, query.nick, query.pass);
+    break;
   }
 }
 
@@ -21,6 +23,9 @@ function register(response, nick, pass){
                .digest('hex');
 
   fs.readFile('users.json', 'utf8', (err,data) => {
+
+    userlist = JSON.parse(data);
+
     if(err){
       response.writeHead(400,heads.heade.txt);
       response.write('{ "error": "Bad Request" }');
@@ -41,13 +46,14 @@ function register(response, nick, pass){
           return;
         }
       } 
-      addUser(nick, hash, response);
+      addUser(nick, hash, response, data);
     }
   })
   console.log("nickname: "+nick+"  password: "+pass+"  hashed password: "+hash);
 }
 
-function addUser(nick, hash,response){
+function addUser(nick, hash, response, data){
+
   const user = {"nick": nick,
                 "pass": hash,
                 "victories" : 0,
@@ -58,5 +64,23 @@ function addUser(nick, hash,response){
 
   response.writeHead(200,heads.heade.txt);
   response.write('{}');
+  response.end();
+}
+
+function ranking(response){
+
+  fs.readFile('users.json', (err,data) =>{
+    if(!err) userlist = JSON.parse(data);
+  })
+
+  userlist.sort((a,b) => a.victories - b.victories)
+  var topTen = [];
+  
+  for(let i = 0; i < 10 && i < userlist.length; i++){
+    topTen.push(userlist[i]);
+  }
+  
+  response.writeHead(200,heads.heade.txt);
+  response.write(JSON.stringify(topTen));
   response.end();
 }
