@@ -9,13 +9,14 @@ function showlogin() {
     document.getElementById("spage").style.display = "none";
     document.getElementById("header").style.display = "block";
     document.getElementById("loginform").style.display = "block";
-
 }
 
 function showmode() {
     document.getElementById("loginform").style.display = "none";
     document.getElementById("modebutton").style.display = "block";
     document.getElementById("difficulty").style.display = "none";
+    document.getElementById("headerjogo").style.display = "none";
+    document.getElementById("game").style.display = "none";
 }
 
 function showdif(bot) {

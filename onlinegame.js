@@ -20,9 +20,6 @@ function register(){
  nick = document.getElementById("username").value;
  pass = document.getElementById("password").value;
 
- //console.log("username = "+nick);
- //console.log("password = "+pass);
-
  fetch(url + "register",{
    method: "POST",
    body: JSON.stringify({
@@ -39,6 +36,7 @@ function register(){
    }
  })
 }
+
 function leave(){
   fetch(url + "leave",{
     method: "POST",
@@ -58,7 +56,6 @@ function leave(){
   })
   playedOnce = 0;
 }
-
 
 function notify(x,y){
   passplay(3);  
@@ -107,6 +104,7 @@ async function join(){
     else{
       console.log(response);
       console.log("Couldn't join");
+      showmode();
     }
   }).then( json =>{
     game = json.game;
@@ -115,7 +113,6 @@ async function join(){
     Sevent = new EventSource(url+"update?nick="+nick+"&game="+game); 
     quit=0;
     update();
-    showOpOnnline();
   })
 }
 

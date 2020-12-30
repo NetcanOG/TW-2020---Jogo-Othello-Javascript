@@ -13,6 +13,14 @@ module.exports.postRequest = function(req, res, query){
     case("/register"):
     register(res, query.nick, query.pass);
     break;
+
+    case("/join"):
+    join(res, query.nick, query.group);
+    break;
+
+    case("/leave"):
+    leave(res, query.nick);
+    break;
   }
 }
 
@@ -56,8 +64,11 @@ function addUser(nick, hash, response, data){
 
   const user = {"nick": nick,
                 "pass": hash,
-                "victories" : 0,
-                "games":0
+                "victories": 0,
+                "games": 0,
+                "group": undefined,
+                "color": undefined,
+                "game": undefined
               };    
   userlist.push(user);
   fs.writeFile('./users.json', JSON.stringify(userlist),(err) => {if(err) console.error(err);})
@@ -87,4 +98,82 @@ function ranking(response){
   response.writeHead(200,heads.heade.txt);
   response.write(JSON.stringify(topTen));
   response.end();
+}
+
+function join(response, nick, group){
+
+  const hash = crypto
+               .createHash('md5')
+               .update(group)
+               .digest('hex');
+
+  fs.readFile('users.json', (err,data) => {
+    if(!err) userlist = JSON.parse(data);
+  })
+  
+  var playerCount = 0;
+  var curUser;
+
+  for(var tempUser of userlist){
+    if(tempUser.game == hash) playerCount++;
+  }
+
+  for(var tempUser of userlist){
+    if(tempUser.nick == nick) curUser = tempUser;  
+  }
+
+  switch(playerCount){
+
+    case 0:
+      curUser.color = "dark";
+      curUser.group = group;
+      curUser.game = hash;
+      fs.writeFile('./users.json', JSON.stringify(userlist),(err) => {if(err) console.error(err);})
+      console.log("color = "+curUser.color+"  group: "+curUser.group+"  hash: "+curUser.game);
+      response.writeHead(200,heads.heade.txt);
+      response.write('{}');
+      response.end();
+    break;
+
+    case 1:
+      curUser.color = "light";
+      curUser.group = group;
+      curUser.game = hash;
+      fs.writeFile('./users.json', JSON.stringify(userlist),(err) => {if(err) console.error(err);})
+      console.log("color = "+curUser.color+"  group: "+curUser.group+"  hash: "+curUser.game);
+      response.writeHead(200,heads.heade.txt);
+      response.write('{}');
+      response.end();
+    break;
+
+    case 2:
+    console.log("Tried to enter a full game");
+    response.writeHead(400,heads.heade.txt);
+    response.write('{ "error": "Bad Request" }');
+    response.end();
+    break;
+
+  }
+}
+
+function leave(response, nick){
+  
+  fs.readFile('users.json', (err,data) => {
+    if(!err) userlist = JSON.parse(data);
+  })
+  
+  var curUser;
+  for(var tempUser of userlist){
+    if(tempUser.nick == nick) curUser = tempUser;  
+  }
+  
+  curUser.color = undefined;
+  curUser.group = undefined;
+  curUser.game = undefined;
+
+  fs.writeFile('./users.json', JSON.stringify(userlist),(err) => {if(err) console.error(err);})
+  response.writeHead(200,heads.heade.txt);
+  response.write('{}');
+  response.end();
+
 }
