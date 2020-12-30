@@ -68,17 +68,21 @@ function addUser(nick, hash, response, data){
 }
 
 function ranking(response){
-
   fs.readFile('users.json', (err,data) =>{
     if(!err) userlist = JSON.parse(data);
   })
-
+  
   userlist.sort((a,b) => a.victories - b.victories)
   var topTen = [];
   
   for(let i = 0; i < 10 && i < userlist.length; i++){
-    topTen.push(userlist[i]);
-  }
+    const info = {"nick": userlist[i].nick,
+                  "victories":  userlist[i].victories,
+                  "games": userlist[i].games
+    };
+    topTen.push(info);
+    //console.log(info);
+  } 
   
   response.writeHead(200,heads.heade.txt);
   response.write(JSON.stringify(topTen));

@@ -257,9 +257,6 @@ function ranking(){
     console.log(data);
     table = document.getElementById("tabela");
 
-    console.log(data);
-    table = document.getElementById("tabela");
-
     while(table.firstChild){
       table.removeChild(table.firstChild);
     }
@@ -280,20 +277,19 @@ function ranking(){
     linha.appendChild(c3);
     table.appendChild(linha);
 
-    for (var y = 0; y < 10; y++) {
-
+    for (var y = 0; y < 10 && y < data.length; y++) {
       linha = document.createElement("tr");
       for (var x = 0; x < 3; x++) {
             var campo = document.createElement("th");
             var text = document.createElement("h3");
             
             if(x==0){
-              text.innerHTML= data.ranking[y].nick;
+              text.innerHTML= data[y].nick;
             }else{
               if(x==1)
-                text.innerHTML= data.ranking[y].victories;
+                text.innerHTML= data[y].victories;
               else 
-                text.innerHTML= data.ranking[y].games;
+                text.innerHTML= data[y].games;
             }
             campo.appendChild(text);
             linha.appendChild(campo);
