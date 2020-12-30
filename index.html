@@ -82,7 +82,7 @@
                 <div class="login-content ">
                     <div class="modojogo">
                         <div class="c1">
-                            <button type="button" class="btn bmodo centrar" onclick="join(), showgame(1)" >
+                            <button type="button" class="btn bmodo centrar" onclick="join()" >
                                 <img src="espadab.png" alt="1VS1 White">VS<img src="espadap.png"  alt="1VS1 Black" class="rotate">
                             </button>
                         </div>
@@ -366,6 +366,19 @@
             </div>
         </div>
     </div>
+    <!--POP Full game-->
+    <div id="popfull" class="modal centrar">
+        <div class="modal-vitorias">
+            <span class="close" onclick="closefull()">&times;</span>
+            <div id="pontjogo" class="centrar">
+                <h1>Tried to enter a full game</h1>
+            </div>
+
+        </div>
+    </div>
+
+
+
     <!--Js do Form de Login-->
     <script src="login.js"></script>
 </body>

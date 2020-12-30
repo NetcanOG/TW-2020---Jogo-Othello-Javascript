@@ -17,7 +17,8 @@
     #desistionline,
     #popdesistiuonline,
     #popganhouonline,
-    #popturnonline {
+    #popturnonline,
+    #popfull {
         display: none;
     }
     /*Centra os elementos tanto verticalmente como horizontalmente*/

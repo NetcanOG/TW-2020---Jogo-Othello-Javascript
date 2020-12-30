@@ -52,10 +52,6 @@ function showOpOnnline(){
     document.getElementById("desistir").style.display = "none";
     document.getElementById("popdesistiu").style.display = "none";
     document.getElementById("popganhou").style.display = "none";
-    //document.getElementById("result").style.display = "none";
     document.getElementById("popdesistiuonline").style.display="none";
-
     document.getElementById("desistionline").style.display = "block";
-
-    
 }

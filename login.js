@@ -39,6 +39,16 @@ function closeresultado() {
     document.getElementById("popvitorias").style.display = "none";
 }
 
+/*Full Game */
+function showfull() {
+    document.getElementById("popfull").style.display = "block";
+}
+
+function closefull() {
+    document.getElementById("popfull").style.display = "none";
+}
+
+
 /*Ranking */
 function showranking(){
     document.getElementById("popranking").style.display = "block";

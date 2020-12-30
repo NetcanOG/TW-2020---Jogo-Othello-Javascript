@@ -88,14 +88,14 @@ async function join(){
   await fetch(url + "join",{
     method: "POST",
     body: JSON.stringify({
-      "group": group,
+      "group": group,  
       "nick": nick,
       "pass": pass
     })
   }).then(response => {
     if(response.ok){
       console.log(response);
-      //showgame(1);
+      showgame(1); 
       isOnline = 1;
       showOpOnnline();
       return response.json();
@@ -104,7 +104,7 @@ async function join(){
     else{
       console.log(response);
       console.log("Couldn't join");
-      showmode();
+      showfull();
     }
   }).then( json =>{
     game = json.game;
@@ -112,7 +112,7 @@ async function join(){
 
     Sevent = new EventSource(url+"update?nick="+nick+"&game="+game); 
     quit=0;
-    update();
+    //update();
   })
 }
 
