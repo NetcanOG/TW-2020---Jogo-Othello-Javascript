@@ -157,16 +157,21 @@ function join(response, nick, group){
 }
 
 function leave(response, nick){
-  
   fs.readFile('users.json', (err,data) => {
     if(!err) userlist = JSON.parse(data);
   })
   
   var curUser;
   for(var tempUser of userlist){
-    if(tempUser.nick == nick) curUser = tempUser;  
+    if(tempUser.nick == nick)
+      curUser = tempUser; 
   }
-  
+  for(var tempUser of userlist){
+    if(tempUser.nick != nick && tempUser.game == curUser.game)
+      tempUser.victories++; 
+  }
+    
+  curUser.games++;
   curUser.color = undefined;
   curUser.group = undefined;
   curUser.game = undefined;
@@ -176,4 +181,4 @@ function leave(response, nick){
   response.write('{}');
   response.end();
 
-}
+} 
