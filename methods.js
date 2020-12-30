@@ -72,7 +72,7 @@ function ranking(response){
     if(!err) userlist = JSON.parse(data);
   })
   
-  userlist.sort((a,b) => a.victories - b.victories)
+  userlist.sort((a,b) => b.victories - a.victories)
   var topTen = [];
   
   for(let i = 0; i < 10 && i < userlist.length; i++){
