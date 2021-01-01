@@ -24,7 +24,8 @@ module.exports.postRequest = function(req, res, query){
     break;
 
     case("/notify"):
-    notify(res, query.nick, query.game, query.move);
+    console.log(query);
+    notify(res, query.nick, query.move);
     break;
   }
 }
@@ -198,7 +199,8 @@ function leave(response, nick){
 
 } 
 
-function notify(response, nick, game, move){
+function notify(response, nick, move){
+  var game;
   fs.readFile('users.json', (err,data) =>{
     if(!err) userlist = JSON.parse(data);
   })
@@ -213,12 +215,13 @@ function notify(response, nick, game, move){
   var moveColor;
 
   for(var tempUser of userlist){
-    if(tempUser.nick == nick) moveColor = tempUser.color;
+    if(tempUser.nick == nick){ 
+      moveColor = tempUser.color;
+      game= tempUser.game;
+    }
   }
   
   for(var tempGame of gamelist){
-    console.log(tempGame.gameCode);
-    console.log(game);
     if(tempGame.gameCode == game){
       console.log("Writing to position x: "+x+"  y: "+y);
       tempGame.board[x][y] = moveColor;
