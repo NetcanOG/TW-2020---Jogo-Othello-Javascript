@@ -184,7 +184,6 @@ function update(){
   }
 }
 
-
 async function translateBoard(){
   for(var x = 0; x < 8; x++){
     for(var y = 0; y < 8; y++){
@@ -200,6 +199,7 @@ async function translateBoard(){
 }
 
 function selectOnlinePiece(x,y){
+  /*
   translateBoard();
   if(data.turn == nick){
     switch (color) {
@@ -220,8 +220,20 @@ function selectOnlinePiece(x,y){
       player = 1;
     }
   }
+  */
 
-  if(data.turn == nick && validPiece(x,y) >= 1){
+ grid = [
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 2, 1, 0, 0, 0],
+  [0, 0, 0, 1, 2, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0]
+];
+
+  if(/*data.turn == nick && */validPiece(x,y) >= 1){
     notify(x,y);
     update();
   }

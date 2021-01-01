@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 var userlist = [];
+var gamelist = [];
 const heads = require('./heads.js');
 const fs = require('fs');
 
@@ -20,6 +21,10 @@ module.exports.postRequest = function(req, res, query){
 
     case("/leave"):
     leave(res, query.nick);
+    break;
+
+    case("/notify"):
+    notify(res, query.nick, query.game, query.move);
     break;
   }
 }
@@ -130,6 +135,16 @@ function join(response, nick, group){
       curUser.game = hash;
       fs.writeFile('./users.json', JSON.stringify(userlist),(err) => {if(err) console.error(err);})
       console.log("color = "+curUser.color+"  group: "+curUser.group+"  hash: "+curUser.game);
+      
+      fs.readFile('boards.json', (err,data) => {
+        if(!err) gamelist = JSON.parse(data);
+      })
+      const game = {"gameCode": hash,
+                    "board": initialGame
+                   };
+      gamelist.push(game);
+      fs.writeFile('./boards.json', JSON.stringify(gamelist),(err) => {if(err) console.error(err);})
+
       response.writeHead(200,heads.heade.txt);
       response.write('{}');
       response.end();
@@ -182,3 +197,47 @@ function leave(response, nick){
   response.end();
 
 } 
+
+function notify(response, nick, game, move){
+  fs.readFile('users.json', (err,data) =>{
+    if(!err) userlist = JSON.parse(data);
+  })
+  fs.writeFile('./users.json', JSON.stringify(userlist),(err) => {if(err) console.error(err);})
+
+  fs.readFile('boards.json', (err,data) => {
+    if(!err) gamelist = JSON.parse(data);
+  })
+  
+  const x = move.row;
+  const y = move.column;
+  var moveColor;
+
+  for(var tempUser of userlist){
+    if(tempUser.nick == nick) moveColor = tempUser.color;
+  }
+  
+  for(var tempGame of gamelist){
+    console.log(tempGame.gameCode);
+    console.log(game);
+    if(tempGame.gameCode == game){
+      console.log("Writing to position x: "+x+"  y: "+y);
+      tempGame.board[x][y] = moveColor;
+      fs.writeFile('./boards.json', JSON.stringify(gamelist),(err) => {if(err) console.error(err);})
+    }
+  }
+  
+  response.writeHead(200,heads.heade.txt);
+  response.write('{}');
+  response.end();
+}
+
+var initialGame =  [
+  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+  ["empty", "empty", "empty", "light", "dark", "empty", "empty", "empty"],
+  ["empty", "empty", "empty", "dark", "light", "empty", "empty", "empty"],
+  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"]
+]; 
