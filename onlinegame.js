@@ -21,21 +21,27 @@ function register(){
  nick = document.getElementById("username").value;
  pass = document.getElementById("password").value;
 
- fetch(url + "register",{
-   method: "POST",
-   body: JSON.stringify({
-     "nick": nick,
-     "pass": pass
-   })
- }).then(response => {
-   if(response.ok){
-     console.log(response);
-     showmode();
-   }else{
-     alert("Wrong password");
-     document.getElementById("password").value="";
-   }
- })
+ if(nick.trim()===""|| pass.trim() ===""){
+   alert("Username or password invalid");
+   document.getElementById("username").value="";
+   document.getElementById("password").value="";
+ }else{
+  fetch(url + "register",{
+    method: "POST",
+    body: JSON.stringify({
+      "nick": nick,
+      "pass": pass
+    })
+  }).then(response => {
+    if(response.ok){
+      console.log(response);
+      showmode();
+    }else{
+      alert("Wrong password");
+      document.getElementById("password").value="";
+    }
+  })
+ }
 }
 
 function leave(){
@@ -65,7 +71,7 @@ function notify(x,y){
   }else{
     moves = {"row": x, "column": y}
   }
-
+ 
   fetch(url + "notify",{
     method: "POST",
     body: JSON.stringify({
