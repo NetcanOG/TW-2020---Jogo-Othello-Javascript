@@ -3,7 +3,24 @@ var userlist = [];
 var gamelist = [];
 const heads = require('./heads.js');
 const fs = require('fs');
-
+var mediaTypes = {
+  'txt':      'text/plain',
+  'html':     'text/html',
+  'css':      'text/css',
+  'js':       'application/javascript',
+  'json':     'application/json',
+  'png':      'image/png'
+}
+var initialGame =  [
+  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+  ["empty", "empty", "empty", "light", "dark", "empty", "empty", "empty"],
+  ["empty", "empty", "empty", "dark", "light", "empty", "empty", "empty"],
+  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"]
+]; 
 
 module.exports.postRequest = function(req, res, query){  
   switch(req.url){
@@ -51,18 +68,9 @@ module.exports.getRequest = function(req, res, link){
   }
 }
 
-var mediaTypes = {
-  'txt':      'text/plain',
-  'html':     'text/html',
-  'css':      'text/css',
-  'js':       'application/javascript',
-  'json':     'application/json',
-  'png':      'image/png'
-}
-
 function getType(url){
-  let type = 'application/octet-stream';
-  var typeStuff = mediaTypes;
+  let typeStuff = 'application/octet-stream';
+  var type = mediaTypes;
   for(let path in type){
     if(type.hasOwnProperty(path)){
       if(url.indexOf(path) > -1) typeStuff = type[path];
@@ -160,7 +168,7 @@ function join(response, nick, group){
   
   var playerCount = 0;
   var curUser;
-
+  
   for(var tempUser of userlist){
     if(tempUser.game == hash) playerCount++;
   }
@@ -274,14 +282,3 @@ function notify(response, nick, move){
   response.write('{}');
   response.end();
 }
-
-var initialGame =  [
-  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-  ["empty", "empty", "empty", "light", "dark", "empty", "empty", "empty"],
-  ["empty", "empty", "empty", "dark", "light", "empty", "empty", "empty"],
-  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"]
-]; 
