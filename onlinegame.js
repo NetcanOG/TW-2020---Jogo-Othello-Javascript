@@ -29,7 +29,7 @@ function register(){
   fetch(url + "register",{
     method: "POST",
     body: JSON.stringify({
-      "nick": nick,
+      "nick": nick.trim(),
       "pass": pass
     })
   }).then(response => {
@@ -246,7 +246,7 @@ function selectOnlinePiece(x,y){
   }
 }
 function giveup(){
-  quit=1;
+  /*quit=1;
   if(data.turn == nick){
     if(color == "dark"){
       showpopganhouonline(data.winner, 1, color);
@@ -259,7 +259,7 @@ function giveup(){
     }else{
       showpopganhouonline(data.winner, 2, color);        
     }
-  }
+  }*/
   leave();
 }
 

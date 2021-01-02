@@ -209,7 +209,7 @@ function join(response, nick, group){
       response.writeHead(200,heads.heade.txt);
       response.write('{}');
       response.end();
-    break;
+    break; 
 
     case 2:
     console.log("Tried to enter a full game");
@@ -232,11 +232,17 @@ function leave(response, nick){
       curUser = tempUser; 
   }
   for(var tempUser of userlist){
-    if(tempUser.nick != nick && tempUser.game == curUser.game)
-      tempUser.victories++; 
-  }
+    if (tempUser.game == curUser.game){
+      if(tempUser.nick != nick)
+       tempUser.victories++; 
+      if(tempUser.nick!= curUser.nick){
+        curUser.games++;
+      tempUser.games++;
+      }
+      }
     
-  curUser.games++;
+  }
+   
   curUser.color = undefined;
   curUser.group = undefined;
   curUser.game = undefined;
