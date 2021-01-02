@@ -24,10 +24,51 @@ module.exports.postRequest = function(req, res, query){
     break;
 
     case("/notify"):
-    console.log(query);
     notify(res, query.nick, query.move);
     break;
   }
+}
+
+module.exports.getRequest = function(req, res, link){  
+  var path = link.pathname;
+
+  switch(req.url){
+    default:
+    if(path === '/'){
+      path = "index.html";
+    }
+    
+    res.setHeader('Content-Type', getType(path));
+    fs.readFile('./' + path, function(err,data){
+      if(err){
+        res.writeHead(404);
+        res.end('404 File not found');
+      }else{
+        res.writeHead(200);
+        res.end(data);
+      }
+    });
+  }
+}
+
+var mediaTypes = {
+  'txt':      'text/plain',
+  'html':     'text/html',
+  'css':      'text/css',
+  'js':       'application/javascript',
+  'json':     'application/json',
+  'png':      'image/png'
+}
+
+function getType(url){
+  let type = 'application/octet-stream';
+  var typeStuff = mediaTypes;
+  for(let path in type){
+    if(type.hasOwnProperty(path)){
+      if(url.indexOf(path) > -1) typeStuff = type[path];
+    }
+  }
+  return typeStuff;
 }
 
 function register(response, nick, pass){

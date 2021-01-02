@@ -10,9 +10,9 @@ var port = 8105;
 //req = request
 //res = response
 const requestListener = function (req, res) {
-  var link = url.parse(req.url);
-  var path = link.pathname;
+  var link = url.parse(req.url,true);
   let body = '';
+  let entry = {};
 
   switch(req.method){
     case 'POST': 
@@ -28,13 +28,7 @@ const requestListener = function (req, res) {
       break;
 
     case 'GET':
-      req
-         .on('data', (chunk) => { body += chunk; })
-         .on( 'end', () => {
-           try { query = JSON.parse(body); /*processar query*/ }
-           catch(err){ /* erros de JSON*/ }
-         })
-         .on('error', (err) => { console.log(err.message); });
+    entry = methods.getRequest(req, res, link);  
     break;
   }
 }

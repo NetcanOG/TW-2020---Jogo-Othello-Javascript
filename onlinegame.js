@@ -1,6 +1,7 @@
 "use strict";
 
-var url = "http://localhost:8105/";
+var url = "http://twserver.alunos.dcc.fc.up.pt:8105/"
+//var url = "http://localhost:8105/";
 //var url = "http://twserver.alunos.dcc.fc.up.pt:8008/";
 var nick;
 var pass;
